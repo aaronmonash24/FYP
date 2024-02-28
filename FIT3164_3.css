@@ -1,0 +1,38 @@
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    background-color: white; /* Change this to the color you want */
+    
+    /* Full screen */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.header-title {
+    font-family: 'Romantic', sans-serif; /* Use the name you defined in @font-face */
+    font-size: 300%; /* Adjust the size as needed */
+    color: rgb(0, 0, 0); /* Change the color as needed */
+    position: absolute;
+    top: 2.5%; /* Adjust the position as needed */
+    left: 50%; /* Adjusted */
+    transform: translateX(-50%); /* Added */
+    z-index: 10;
+}
+
+.section-with-yellow-background {
+    background-color: #ffff9e;
+    padding: 40px;
+}
+
+.hamburger-button {
+    position: fixed;
+    top: 10px; /* Adjust as needed */
+    left: 10px; /* Adjust as needed */
+    font-size: 30px; /* Adjust as needed */
+    cursor: pointer;
+    z-index: 1500; /* Above the sidebar and other content */
+    /* Add display: none; here if not inline */
+}

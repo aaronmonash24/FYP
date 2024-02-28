@@ -1,0 +1,14 @@
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    background-color: lightblue; /* Change this to the color you want */
+    
+    /* Full screen */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
