@@ -12,27 +12,88 @@ body {
     background-size: cover;
 }
 .header-title {
-    font-family: 'Romantic', sans-serif; /* Use the name you defined in @font-face */
+    font-family: 'LOTTERIACHAB', sans-serif; /* Use the name you defined in @font-face */
     font-size: 300%; /* Adjust the size as needed */
-    color: rgb(0, 0, 0); /* Change the color as needed */
+    color: #ffff9e; /* Change the color as needed */
     position: absolute;
-    top: 2.5%; /* Adjust the position as needed */
-    left: 50%; /* Adjusted */
-    transform: translateX(-50%); /* Added */
+    left: 33%; /* Adjusted */
     z-index: 10;
 }
 
-.section-with-yellow-background {
-    background-color: #ffff9e;
-    padding: 40px;
+
+.section-with-blue-background {
+    background-color: #4b62ff;
+    padding: 37px;
 }
 
-.hamburger-button {
+.sidebar {
     position: fixed;
-    top: 10px; /* Adjust as needed */
-    left: 10px; /* Adjust as needed */
-    font-size: 30px; /* Adjust as needed */
-    cursor: pointer;
-    z-index: 1500; /* Above the sidebar and other content */
-    /* Add display: none; here if not inline */
+    top: 0;
+    left: 0;
+    width: 130px;
+    height: 100%;
+    background-color: #D3D3D3;
+    padding: 20px;
+    color: #fff;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+@font-face {
+    font-family: 'PTR'; /* Give your font a name to reference it by */
+    src: url('font/PTSans-Regular.ttf') format('truetype'); /* Adjust the path as necessary */
+}
+@font-face {
+    font-family: 'LOTTERIACHAB';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/LOTTERIACHAB.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'DNF'; /* Give your font a name to reference it by */
+    src: url('font/DNFBitBitTTF.ttf') format('truetype'); /* Adjust the path as necessary */
+}
+.logo img {
+    position: absolute;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    top: 0%;
+    left: 1%;
+    z-index: 1001;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 120px;
+    height: 100%;
+    background-color: #D3D3D3;
+    padding: 20px;
+    color: #fff;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+    font-family: Arial, sans-serif; /* Change the font family as needed */
+}
+
+.menu {
+    margin-top: 90px; /* Adjust the margin to move the menu lower */
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0px;
+}
+
+.menu ul li {
+    margin-bottom: 20px; /* Increase the margin between menu items */
+}
+
+.menu ul li a {
+    font-family: 'DNF', sans-serif; /* Use the name you defined in @font-face */
+    color: #1618fd;
+    text-decoration: none;
+    font-size: 22px; /* Increase the font size */
 }
