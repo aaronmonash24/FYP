@@ -50,7 +50,7 @@ body {
     font-style: normal;
 }
 @font-face {
-    font-family: 'DNF'; /* Give your font a name to reference it by */
+    font-family: 'DNF1'; /* Give your font a name to reference it by */
     src: url('font/DNFBitBitTTF.ttf') format('truetype'); /* Adjust the path as necessary */
 }
 .logo img {
