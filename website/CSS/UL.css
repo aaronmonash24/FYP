@@ -97,3 +97,35 @@ body {
     text-decoration: none;
     font-size: 22px; /* Increase the font size */
 }
+
+.rectangle {
+    width: 700px;
+    height: 400px;
+    background-color: #D3D3D3;
+    border-radius: 20px;
+    margin-top: 10%; /* Adjust the top margin as needed */
+    margin-left: 31%;
+    z-index: 1000;
+}
+
+.rectangle-s {
+    width: 470px;
+    height: 150px;
+    position: absolute;
+    background-color: #4b62ff;
+    border-radius: 20px;
+    top: 38%; /* Adjust the top margin to position it lower */
+    left: 38.7%;
+    z-index: 1001;
+}
+
+
+.drop-file {
+    font-family: 'LOTTERIACHAB', sans-serif; /* Use the name you defined in @font-face */
+    font-size: 220%; /* Adjust the size as needed */
+    color: #5A5A5A; /* Change the color as needed */
+    position: absolute;
+    left: 43%; /* Adjusted */
+    top: 60%;
+    z-index: 1001;
+}
