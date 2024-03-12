@@ -8,6 +8,8 @@
 </head>
 <body>
     <div class="header-title">★Upload File★</div>
+  
+
     <section class="section-with-blue-background"></section>
     <div class="sidebar">
         <div class="logo">
@@ -22,19 +24,34 @@
             </ul>
         </nav>
     </div>
-    <form action="upload.php" method="post" enctype="multipart/form-data">
-    <label for= "filename">Select a File</label>
-    <input type= "file"
-        id="filename" 
-        name="filename">
-<button>Upload</button>
+    <form id="uploadForm" action="upload.php" method="post" enctype="multipart/form-data">
+        <div class="file-upload-container">
+            <div class="select-file-container">
+                <input type="file" id="filename" name="filename" style="display: none;">
+                <label for="filename" class="rectangle-s" id="selectFileButton">Select File</label>
+            </div>
+            <div class="upload-button-container">
+                <button type="button" onclick="submitForm()">Upload</button>
+            </div>
+        </div>
     </form>
-    <div class="rectangle"></div> 
-    <div class="rectangle-s"></div>
-    <div class="rectangle-b"></div> 
-    <div class="rectangle2-s"></div>
-    <div class="drop-file">or drop a file here</div>   
     
+    <script>
+        function submitForm() {
+            document.getElementById("uploadForm").submit();
+        }
+    </script>
+    
+
+    <div class="rectangle-container">
+        <div class="rectangle"></div>
+        <div class="rectangle-b"></div>
+    </div>
+    <div class="dp-title">Drop a file ↓</div>
+    <div class="or">or</div>
+    <div id="selectedFileName"></div>
+
     <script src="JS file/UL.js"></script>
 </body>
 </html>
+

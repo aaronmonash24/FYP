@@ -12,11 +12,11 @@ body {
     background-size: cover;
 }
 .header-title {
-    font-family: 'LOTTERIACHAB', sans-serif; /* Use the name you defined in @font-face */
-    font-size: 300%; /* Adjust the size as needed */
+    font-family: 'fairfax', sans-serif; /* Use the name you defined in @font-face */
+    font-size: 450%; /* Adjust the size as needed */
     color: #ffff9e; /* Change the color as needed */
     position: absolute;
-    left: 33%; /* Adjusted */
+    left: 32%; /* Adjusted */
     z-index: 10;
 }
 
@@ -52,6 +52,10 @@ body {
 @font-face {
     font-family: 'DNF'; /* Give your font a name to reference it by */
     src: url('font/DNFBitBitTTF.ttf') format('truetype'); /* Adjust the path as necessary */
+}
+@font-face {
+    font-family: 'fairfax'; /* Give your font a name to reference it by */
+    src: url('font/Fairfax.ttf') format('truetype'); /* Adjust the path as necessary */
 }
 .logo img {
     position: absolute;
@@ -92,7 +96,7 @@ body {
 }
 
 .menu ul li a {
-    font-family: 'DNF', sans-serif; /* Use the name you defined in @font-face */
+    font-family: 'fairfax', sans-serif; /* Use the name you defined in @font-face */
     color: #1618fd;
     text-decoration: none;
     font-size: 22px; /* Increase the font size */

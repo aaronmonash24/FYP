@@ -12,15 +12,31 @@ body {
     background-size: cover;
 }
 .header-title {
-    font-family: 'LOTTERIACHAB', sans-serif; /* Use the name you defined in @font-face */
-    font-size: 300%; /* Adjust the size as needed */
+    font-family: 'fairfax', sans-serif; /* Use the name you defined in @font-face */
+    font-size: 450%; /* Adjust the size as needed */
     color: #ffff9e; /* Change the color as needed */
     position: absolute;
-    left: 41%; /* Adjusted */
+    left: 40%; /* Adjusted */
     z-index: 10;
 }
-
-
+.dp-title {
+    font-family: 'fairfax', sans-serif; /* Use the name you defined in @font-face */
+    font-size: 250%; /* Adjust the size as needed */
+    color: #323334; /* Change the color as needed */
+    position: absolute;
+    top: 29%;
+    left: 71%; /* Adjusted */
+    z-index: 10000;
+}
+.or {
+    font-family: 'fairfax', sans-serif; /* Use the name you defined in @font-face */
+    font-size: 450%; /* Adjust the size as needed */
+    color: #5496ff; /* Change the color as needed */
+    position: absolute;
+    top: 47%;
+    left: 53%; /* Adjusted */
+    z-index: 10000;
+}
 .section-with-blue-background {
     background-color: #5497fe;
     padding: 37px;
@@ -52,6 +68,10 @@ body {
 @font-face {
     font-family: 'DNF'; /* Give your font a name to reference it by */
     src: url('font/DNFBitBitTTF.ttf') format('truetype'); /* Adjust the path as necessary */
+}
+@font-face {
+    font-family: 'fairfax'; /* Give your font a name to reference it by */
+    src: url('font/Fairfax.ttf') format('truetype'); /* Adjust the path as necessary */
 }
 .logo img {
     position: absolute;
@@ -92,10 +112,17 @@ body {
 }
 
 .menu ul li a {
-    font-family: 'DNF', sans-serif; /* Use the name you defined in @font-face */
+    font-family: 'fairfax', sans-serif; /* Use the name you defined in @font-face */
     color: #1618fd;
     text-decoration: none;
     font-size: 22px; /* Increase the font size */
+}
+
+.rectangle-container {
+    display: flex; /* Use flexbox */
+    justify-content: space-between; /* Distribute items evenly along the main axis */
+    width: 100%; /* Ensure the container spans the full width */
+    top: 140%
 }
 
 .rectangle {
@@ -103,41 +130,22 @@ body {
     height: 400px;
     background-color: #D3D3D3;
     border-radius: 20px;
-    margin-top: 10%; /* Adjust the top margin as needed */
-    margin-left: 16%;
     z-index: 1000;
+    margin-left: 16.8%;
+    margin-top: 140px; /* Adjust the margin-top position */
 }
 
-.rectangle-s {
-    width: 350px;
-    height: 120px;
-    position: absolute;
-    background-color: #526cff;
-    border-radius: 20px;
-    top: 40%; /* Adjust the top margin to position it lower */
-    left: 17.7%;
-    z-index: 1001;
-}
 .rectangle-b {
     width: 400px;
     height: 400px;
     background-color: #D3D3D3;
     border-radius: 20px;
-    top: 10%; /* Adjust the top margin as needed */
-    margin-left: 68%;
     z-index: 1000;
+    margin-right: 6.8%;
+    margin-top: 140px; /* Adjust the margin-top position */
 }
 
-.rectangle2-s {
-    width: 350px;
-    height: 120px;
-    position: absolute;
-    background-color: #526cff;
-    border-radius: 20px;
-    top: 40%; /* Adjust the top margin to position it lower */
-    left: 67.7%;
-    z-index: 1001;
-}
+
 
 .drop-file {
     font-family: 'LOTTERIACHAB', sans-serif; /* Use the name you defined in @font-face */
@@ -147,4 +155,59 @@ body {
     left: 43%; /* Adjusted */
     top: 60%;
     z-index: 1001;
+}
+
+/* Your existing CSS styles */
+
+
+.rectangle-s {
+    width: 300px;
+    height: 120px;
+    background-color: #526cff;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: white;
+    font-family: 'fairfax', sans-serif;
+    font-size: 47px;
+    position: absolute; /* Add position:absolute */
+    top: 300px; /* Adjust top position */
+    left: 20.2%; /* Adjust left position */
+    z-index: 10000;
+
+}
+
+/* Move only the label, not the button */
+
+.upload-button-container {
+    position: absolute;
+    top: 65%; /* Adjust the vertical position */
+    left: 30.5%; /* Adjust the horizontal position */
+    transform: translate(-50%, -50%); /* Center the button */
+    z-index: 1001; /* Ensure the button is above other elements */
+}
+
+.file-upload-container button {
+    background-color: #93bbfa;
+    color: white;
+    padding: 28px 70px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    z-index: 10000;
+    color: #323334;
+    font-family: 'fairfax', sans-serif;
+    font-size: 28px;
+}
+
+#selectedFileName {
+    position: absolute;
+    top: 430px; /* Adjust the top position as needed */
+    left: 30%; /* Center horizontally */
+    transform: translateX(-50%);
+    font-family: 'fairfax', sans-serif; /* Use the font family you prefer */
+    font-size: 20px; /* Adjust the font size as needed */
+    z-index: 10000;
 }
