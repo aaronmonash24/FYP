@@ -1,213 +1,211 @@
-body, html {
-    height: 100%;
-    margin: 0;
+body,
+html {
+  height: 100%;
+  margin: 0;
 }
 
 body {
-    background-color: white; /* Change this to the color you want */
-    
-    /* Full screen */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+  background-color: white; /* Change this to the color you want */
+
+  /* Full screen */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .header-title {
-    font-family: 'fairfax', sans-serif; /* Use the name you defined in @font-face */
-    font-size: 450%; /* Adjust the size as needed */
-    color: #ffff9e; /* Change the color as needed */
-    position: absolute;
-    left: 40%; /* Adjusted */
-    z-index: 10;
+  font-family: "fairfax", sans-serif; /* Use the name you defined in @font-face */
+  font-size: 450%; /* Adjust the size as needed */
+  color: #ffff9e; /* Change the color as needed */
+  position: absolute;
+  left: 40%; /* Adjusted */
+  z-index: 10;
 }
 .dp-title {
-    font-family: 'fairfax', sans-serif; /* Use the name you defined in @font-face */
-    font-size: 250%; /* Adjust the size as needed */
-    color: #323334; /* Change the color as needed */
-    position: absolute;
-    top: 29%;
-    left: 71%; /* Adjusted */
-    z-index: 10000;
+  font-family: "fairfax", sans-serif; /* Use the name you defined in @font-face */
+  font-size: 250%; /* Adjust the size as needed */
+  color: #323334; /* Change the color as needed */
+  position: absolute;
+  top: 29%;
+  left: 71%; /* Adjusted */
+  z-index: 10000;
 }
 .or {
-    font-family: 'fairfax', sans-serif; /* Use the name you defined in @font-face */
-    font-size: 450%; /* Adjust the size as needed */
-    color: #5496ff; /* Change the color as needed */
-    position: absolute;
-    top: 47%;
-    left: 53%; /* Adjusted */
-    z-index: 10000;
+  font-family: "fairfax", sans-serif; /* Use the name you defined in @font-face */
+  font-size: 450%; /* Adjust the size as needed */
+  color: #5496ff; /* Change the color as needed */
+  position: absolute;
+  top: 47%;
+  left: 53%; /* Adjusted */
+  z-index: 10000;
 }
 .section-with-blue-background {
-    background-color: #5497fe;
-    padding: 37px;
+  background-color: #5497fe;
+  padding: 37px;
 }
 
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 130px;
-    height: 100%;
-    background-color: #D3D3D3;
-    padding: 20px;
-    color: #fff;
-    transition: transform 0.3s ease-in-out;
-    z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 130px;
+  height: 100%;
+  background-color: #d3d3d3;
+  padding: 20px;
+  color: #fff;
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
 }
 
 @font-face {
-    font-family: 'PTR'; /* Give your font a name to reference it by */
-    src: url('font/PTSans-Regular.ttf') format('truetype'); /* Adjust the path as necessary */
+  font-family: "PTR"; /* Give your font a name to reference it by */
+  src: url("font/PTSans-Regular.ttf") format("truetype"); /* Adjust the path as necessary */
 }
 @font-face {
-    font-family: 'LOTTERIACHAB';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/LOTTERIACHAB.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "LOTTERIACHAB";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/LOTTERIACHAB.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
 }
 @font-face {
-    font-family: 'DNF'; /* Give your font a name to reference it by */
-    src: url('font/DNFBitBitTTF.ttf') format('truetype'); /* Adjust the path as necessary */
+  font-family: "DNF"; /* Give your font a name to reference it by */
+  src: url("font/DNFBitBitTTF.ttf") format("truetype"); /* Adjust the path as necessary */
 }
 @font-face {
-    font-family: 'fairfax'; /* Give your font a name to reference it by */
-    src: url('font/Fairfax.ttf') format('truetype'); /* Adjust the path as necessary */
+  font-family: "fairfax"; /* Give your font a name to reference it by */
+  src: url("font/Fairfax.ttf") format("truetype"); /* Adjust the path as necessary */
 }
 .logo img {
-    position: absolute;
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-    top: 0%;
-    left: 1%;
-    z-index: 1001;
+  position: absolute;
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  top: 0%;
+  left: 1%;
+  z-index: 1001;
 }
 
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 120px;
-    height: 100%;
-    background-color: #D3D3D3;
-    padding: 20px;
-    color: #fff;
-    transition: transform 0.3s ease-in-out;
-    z-index: 1000;
-    font-family: Arial, sans-serif; /* Change the font family as needed */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 100%;
+  background-color: #d3d3d3;
+  padding: 20px;
+  color: #fff;
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+  font-family: Arial, sans-serif; /* Change the font family as needed */
 }
 
 .menu {
-    margin-top: 90px; /* Adjust the margin to move the menu lower */
+  margin-top: 90px; /* Adjust the margin to move the menu lower */
 }
 
 .menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0px;
+  list-style: none;
+  padding: 0;
+  margin: 0px;
 }
 
 .menu ul li {
-    margin-bottom: 20px; /* Increase the margin between menu items */
+  margin-bottom: 20px; /* Increase the margin between menu items */
 }
 
 .menu ul li a {
-    font-family: 'fairfax', sans-serif; /* Use the name you defined in @font-face */
-    color: #1618fd;
-    text-decoration: none;
-    font-size: 22px; /* Increase the font size */
+  font-family: "fairfax", sans-serif; /* Use the name you defined in @font-face */
+  color: #1618fd;
+  text-decoration: none;
+  font-size: 22px; /* Increase the font size */
 }
 
 .rectangle-container {
-    display: flex; /* Use flexbox */
-    justify-content: space-between; /* Distribute items evenly along the main axis */
-    width: 100%; /* Ensure the container spans the full width */
-    top: 140%
+  display: flex; /* Use flexbox */
+  justify-content: space-between; /* Distribute items evenly along the main axis */
+  width: 100%; /* Ensure the container spans the full width */
+  top: 140%;
 }
 
 .rectangle {
-    width: 400px;
-    height: 400px;
-    background-color: #D3D3D3;
-    border-radius: 20px;
-    z-index: 1000;
-    margin-left: 16.8%;
-    margin-top: 140px; /* Adjust the margin-top position */
+  width: 400px;
+  height: 400px;
+  background-color: #d3d3d3;
+  border-radius: 20px;
+  z-index: 1000;
+  margin-left: 16.8%;
+  margin-top: 140px; /* Adjust the margin-top position */
 }
 
 .rectangle-b {
-    width: 400px;
-    height: 400px;
-    background-color: #D3D3D3;
-    border-radius: 20px;
-    z-index: 1000;
-    margin-right: 6.8%;
-    margin-top: 140px; /* Adjust the margin-top position */
+  width: 400px;
+  height: 400px;
+  background-color: #d3d3d3;
+  border-radius: 20px;
+  z-index: 1000;
+  margin-right: 6.8%;
+  margin-top: 140px; /* Adjust the margin-top position */
 }
 
-
-
 .drop-file {
-    font-family: 'LOTTERIACHAB', sans-serif; /* Use the name you defined in @font-face */
-    font-size: 220%; /* Adjust the size as needed */
-    color: #5A5A5A; /* Change the color as needed */
-    position: absolute;
-    left: 43%; /* Adjusted */
-    top: 60%;
-    z-index: 1001;
+  font-family: "LOTTERIACHAB", sans-serif; /* Use the name you defined in @font-face */
+  font-size: 220%; /* Adjust the size as needed */
+  color: #5a5a5a; /* Change the color as needed */
+  position: absolute;
+  left: 43%; /* Adjusted */
+  top: 60%;
+  z-index: 1001;
 }
 
 /* Your existing CSS styles */
 
-
 .rectangle-s {
-    width: 300px;
-    height: 120px;
-    background-color: #526cff;
-    border-radius: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    color: white;
-    font-family: 'fairfax', sans-serif;
-    font-size: 47px;
-    position: absolute; /* Add position:absolute */
-    top: 300px; /* Adjust top position */
-    left: 20.2%; /* Adjust left position */
-    z-index: 10000;
-
+  width: 300px;
+  height: 120px;
+  background-color: #526cff;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: white;
+  font-family: "fairfax", sans-serif;
+  font-size: 47px;
+  position: absolute; /* Add position:absolute */
+  top: 300px; /* Adjust top position */
+  left: 20.2%; /* Adjust left position */
+  z-index: 10000;
 }
 
 /* Move only the label, not the button */
 
 .upload-button-container {
-    position: absolute;
-    top: 65%; /* Adjust the vertical position */
-    left: 30.5%; /* Adjust the horizontal position */
-    transform: translate(-50%, -50%); /* Center the button */
-    z-index: 1001; /* Ensure the button is above other elements */
+  position: absolute;
+  top: 65%; /* Adjust the vertical position */
+  left: 30.5%; /* Adjust the horizontal position */
+  transform: translate(-50%, -50%); /* Center the button */
+  z-index: 1001; /* Ensure the button is above other elements */
 }
 
 .file-upload-container button {
-    background-color: #93bbfa;
-    color: white;
-    padding: 28px 70px;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-    z-index: 10000;
-    color: #323334;
-    font-family: 'fairfax', sans-serif;
-    font-size: 28px;
+  background-color: #93bbfa;
+  color: white;
+  padding: 28px 70px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  z-index: 10000;
+  color: #323334;
+  font-family: "fairfax", sans-serif;
+  font-size: 28px;
 }
 
 #selectedFileName {
-    position: absolute;
-    top: 430px; /* Adjust the top position as needed */
-    left: 30%; /* Center horizontally */
-    transform: translateX(-50%);
-    font-family: 'fairfax', sans-serif; /* Use the font family you prefer */
-    font-size: 20px; /* Adjust the font size as needed */
-    z-index: 10000;
+  position: absolute;
+  top: 430px; /* Adjust the top position as needed */
+  left: 30%; /* Center horizontally */
+  transform: translateX(-50%);
+  font-family: "fairfax", sans-serif; /* Use the font family you prefer */
+  font-size: 20px; /* Adjust the font size as needed */
+  z-index: 10000;
 }
