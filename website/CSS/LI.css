@@ -22,7 +22,7 @@ body {
   font-size: 450%; /* Adjust the size as needed */
   color: #ffff9e; /* Change the color as needed */
   position: absolute;
-  left: 45%; /* Adjusted */
+  left: 43%; /* Adjusted */
   z-index: 10;
 }
 
@@ -32,17 +32,18 @@ body {
 }
 
 .sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 130px;
-  height: 100%;
-  background-color: #d3d3d3;
-  padding: 20px;
-  color: #fff;
-  transition: transform 0.3s ease-in-out;
-  z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 130px;
+    height: 100%;
+    background-color: #D3D3D3;
+    padding: 20px;
+    color: #fff;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
 }
+
 
 @font-face {
   font-family: "PTR"; /* Give your font a name to reference it by */
@@ -77,7 +78,7 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 120px;
+  width: 160px;
   height: 100%;
   background-color: #d3d3d3;
   padding: 20px;
@@ -108,16 +109,54 @@ body {
   font-size: 22px; /* Increase the font size */
 }
 
-.Login menu {
-  width: 400px;
-  height: 400px;
-  background-color: #d4ce1d;
+
+.login-menu {
+  width: 450px;
+  height: 450px;
+  background-color: #93bbfa;
   border-radius: 20px;
   z-index: 1000;
-  margin-left: 16.8%;
-  margin-top: 140px; /* Adjust the margin-top position */
+  margin-left: 38%;
+  margin-top: 10%; /* Adjust the margin-top to position the login menu lower */
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+}
+
+.form {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.inputbox {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.inputbox input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: #f5f5f5;
+}
+
+.inputbox span {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  pointer-events: none;
+  color: #888;
+}
+
+input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: #3498db;
+  color: #fff;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #2980b9;
 }
