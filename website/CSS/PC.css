@@ -16,7 +16,7 @@ body {
     font-size: 450%; /* Adjust the size as needed */
     color: #ffff9e; /* Change the color as needed */
     position: absolute;
-    left: 32%; /* Adjusted */
+    left: 34%; /* Adjusted */
     z-index: 10;
 }
 

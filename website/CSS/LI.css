@@ -22,7 +22,7 @@ body {
   font-size: 450%; /* Adjust the size as needed */
   color: #ffff9e; /* Change the color as needed */
   position: absolute;
-  left: 43%; /* Adjusted */
+  left: 46%; /* Adjusted */
   z-index: 10;
 }
 
@@ -73,19 +73,6 @@ body {
   z-index: 1001;
 }
 
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 160px;
-  height: 100%;
-  background-color: #d3d3d3;
-  padding: 20px;
-  color: #fff;
-  transition: transform 0.3s ease-in-out;
-  z-index: 1000;
-  font-family: Arial, sans-serif; /* Change the font family as needed */
-}
 
 .menu {
   margin-top: 90px; /* Adjust the margin to move the menu lower */
