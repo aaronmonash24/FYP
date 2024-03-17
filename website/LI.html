@@ -25,17 +25,30 @@
     </div>
     <div class="login-menu">
       <div class="form">
-          <form>
-              <div class="inputbox">
-                  <input type="text" value="" id="username" required />
-                  <span>Username</span>
-              </div>
-              <div class="inputbox">
-                  <input type="password" value="" id="password" required />
-                  <span>Password</span>
-              </div>
-              <input type ="submit" value = "Submit">
-          </form>
+        <form>
+          <div class="inputbox">
+            <h3 class="Text">Username</h3>
+            <!-- <label for="username"><b>Username</b></label> -->
+            <input
+              type="text"
+              placeholder="Enter Username"
+              name="username"
+              required
+            />
+          </div>
+
+          <div class="inputbox">
+            <h3 class="Text">Password</h5>
+            <!-- <label for="password"><b class="Text">Password</b></label> -->
+            <input
+              type="password"
+              placeholder="Enter Password"
+              name="password"
+              required
+            />
+          </div>
+          <input type="submit" value="Submit">
+        </form>
       </div>
     </div>
     <script src="JS file/LI.js"></script>
