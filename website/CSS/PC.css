@@ -11,19 +11,25 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
-.header-title {
-    font-family: 'fairfax', sans-serif; /* Use the name you defined in @font-face */
-    font-size: 450%; /* Adjust the size as needed */
-    color: #ffff9e; /* Change the color as needed */
-    position: absolute;
-    left: 34%; /* Adjusted */
-    z-index: 10;
-}
-
-
 .section-with-blue-background {
     background-color: #5497fe;
     padding: 37px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.header-title {
+    font-family: 'fairfax', sans-serif;
+    font-size: 450%;
+    color: #ffff9e;
+    position: absolute;
+    top: 50%;
+    left: 53%;
+    transform: translate(-50%, -50%);
+    z-index: 999; /* Lower than the z-index of the blue background */
 }
 
 .sidebar {
@@ -100,4 +106,53 @@ body {
     color: #1618fd;
     text-decoration: none;
     font-size: 22px; /* Increase the font size */
+}
+
+/* Add your CSS styles here */
+.search-container {
+    margin-bottom: 20px;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Add your CSS styles here */
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left; /* Adjust text alignment */
+}
+
+th {
+    background-color: #f2f2f2;
+}
+/* Limit the width of the Gender column */
+/* Limit the width of the Gender column and enable text wrapping */
+#dataTable td:nth-child(3) {
+    max-width: 200px; /* Adjust the width as needed */
+    white-space: normal; /* Enable text wrapping */
+}
+
+/* Enable text wrapping for all cells in the table */
+#dataTable td {
+    white-space: normal;
 }

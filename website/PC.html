@@ -7,8 +7,26 @@
     <title>Title</title>
   </head>
   <body>
-    <div class="header-title">Product Comparison</div>
-    <section class="section-with-blue-background"></section>
+    <body>
+      <section class="section-with-blue-background">
+          <div class="header-title">Product Comparison</div>
+      </section>
+      <!-- Rest of your content goes here -->
+  </body>
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search by ID...">
+    <select id="filterDropdown">
+        <option value="name">Name</option>
+        <option value="category">Category</option>
+        <!-- Add more options as needed -->
+    </select>
+    <button onclick="showPopup()">Select Fields</button>
+</div>
+
+<div id="popup" class="popup">
+    <!-- Pop-up content goes here -->
+</div>
+
     <div class="sidebar">
       <div class="logo">
         <img src="IMG file/logo.PNG" alt="Logo" />
@@ -22,9 +40,43 @@
         </ul>
       </nav>
     </div>
-    <table id="csvTable">
-      <!-- CSV data will be inserted here -->
-  </table>
+    <style>
+      /* Add your CSS styles here */
+      #tableContainer {
+          margin-left: 12%; /* Adjust the left margin to slide the table to the left */
+          margin-top: 10%;
+      }
+      
+      table {
+          border-collapse: collapse;
+          width: 100%;
+      }
+      
+      th, td {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+      }
+      
+      th {
+          background-color: #f2f2f2;
+      }
+  </style>
+</head>
+<body>
+  <div id="tableContainer">
+      <table id="dataTable">
+          <!-- Table headers will be added dynamically -->
+          <thead>
+              <tr>
+                  <!-- Table headers will be added dynamically -->
+              </tr>
+          </thead>
+          <tbody>
+              <!-- Table rows will be added dynamically -->
+          </tbody>
+      </table>
+  </div>
     <script src="JS file/PC.js"></script>
   </body>
 </html>

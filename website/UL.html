@@ -7,10 +7,12 @@
     <title>Title</title>
 </head>
 <body>
-    <div class="header-title">Upload File</div>
-  
-
-    <section class="section-with-blue-background"></section>
+    <body>
+        <section class="section-with-blue-background">
+            <div class="header-title">Upload File</div>
+        </section>
+        <!-- Rest of your content goes here -->
+    </body>
     <div class="sidebar">
         <div class="logo">
             <img src="IMG file/logo.PNG" alt="Logo">
@@ -24,19 +26,21 @@
             </ul>
         </nav>
     </div>
-    <form action="upload.php" method="post" enctype="multipart/form-data">
+    <form id="uploadForm" enctype="multipart/form-data">
         <div class="file-upload-container">
             <div class="select-file-container">
-                <input type="file" id="filename" name="filename" accept=".csv" style="display: none;" onchange="displayFileName()">
+                <input type="file" id="filename" name="filename" accept=".csv" style="display: none;">
                 <label for="filename" class="rectangle-s" id="selectFileButton">
                     Select File
                 </label>
+                <span id="selectedFileName"></span>
             </div>
             <div class="upload-button-container">
-                <button type="submit">Upload</button>
+                <button type="button" id="uploadButton">Upload</button>
             </div>
         </div>
     </form>
+    
     
     
 
