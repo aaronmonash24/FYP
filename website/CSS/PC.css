@@ -109,20 +109,33 @@ body {
 }
 
 /* Add your CSS styles here */
-.search-container {
-    margin-bottom: 20px;
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.popup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.popup-content {
+    background-color: white;
+    width: 300px;
     padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    position: relative;
+}
+
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
 }
 
 /* Add your CSS styles here */
@@ -147,12 +160,22 @@ th {
 }
 /* Limit the width of the Gender column */
 /* Limit the width of the Gender column and enable text wrapping */
-#dataTable td:nth-child(3) {
-    max-width: 200px; /* Adjust the width as needed */
-    white-space: normal; /* Enable text wrapping */
+.table-container {
+    overflow-x: auto; /* Enable horizontal scrolling */
 }
 
-/* Enable text wrapping for all cells in the table */
-#dataTable td {
-    white-space: normal;
+#dataTable {
+    width: 100%; /* Ensure the table spans the full width of its container */
+    border-collapse: collapse; /* Collapse table borders */
+}
+
+#dataTable th, #dataTable td {
+    padding: 8px; /* Add padding to cells */
+    text-align: left; /* Align text to the left within cells */
+    border: 1px solid #ddd; /* Add borders to cells */
+}
+
+#dataTable th {
+    background-color: #f2f2f2; /* Add background color for table header */
+    font-weight: bold; /* Make table header text bold */
 }

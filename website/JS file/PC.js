@@ -1,23 +1,88 @@
+// Global variables to store dropdown bars
+var dropdownCount = 0; // Initial dropdown count
+var dropdownIds = []; // Array to store dropdown IDs
+
+function addDropdown(fieldNames) {
+    dropdownCount++;
+    var newDropdownId = 'dropdown' + dropdownCount;
+    dropdownIds.push(newDropdownId);
+    
+    var dropdownContainer = document.getElementById('dropdownContainer');
+    var newDropdown = document.createElement('select');
+    newDropdown.id = newDropdownId;
+    
+    // Add options to the dropdown based on fieldNames
+    fieldNames.forEach(function(fieldName) {
+        var option = document.createElement('option');
+        option.value = fieldName;
+        option.textContent = fieldName;
+        newDropdown.appendChild(option);
+    });
+    
+    dropdownContainer.appendChild(newDropdown);
+}
+
+
+// Function to remove the last dropdown bar
+function removeDropdown() {
+    if (dropdownCount > 0) {
+        var lastDropdownId = dropdownIds.pop();
+        var lastDropdown = document.getElementById(lastDropdownId);
+        lastDropdown.remove();
+        dropdownCount--;
+    }
+}
+
+// Function to handle submission of selected fields
+function submitSelection() {
+    // Add functionality to handle selection submission
+    var selectedFields = [];
+    dropdownIds.forEach(function(dropdownId) {
+        selectedFields.push(document.getElementById(dropdownId).value);
+    });
+    
+    console.log('Selected fields:', selectedFields);
+    closePopup(); // Close the popup after submission
+}
+
+// Function to open the popup
+function openPopup() {
+    document.getElementById('popup').style.display = 'block';
+}
+
+// Function to close the popup
+function closePopup() {
+    document.getElementById('popup').style.display = 'none';
+}
+
+// Function to populate the dropdown options based on field names
+function createDropdownOptions(fieldNames) {
+    var dropdownContainer = document.getElementById('dropdownContainer');
+    
+    // Clear existing dropdowns
+    dropdownContainer.innerHTML = '';
+
+    // Create options for dropdowns
+    fieldNames.forEach(function(fieldName) {
+        var newDropdown = document.createElement('select');
+        var option = document.createElement('option');
+        option.value = fieldName;
+        option.textContent = fieldName;
+        newDropdown.appendChild(option);
+        dropdownContainer.appendChild(newDropdown);
+    });
+}
+
 window.addEventListener('DOMContentLoaded', function() {
     var urlParams = new URLSearchParams(window.location.search);
     var csvData = urlParams.get('data');
     if (csvData) {
         var parsedData = parseCSV(csvData);
         displayData(parsedData);
+        createDropdownOptions(parsedData[0]); // Pass the first row (field names) to create dropdown options
     }
 });
-
-function parseCSV(csvData) {
-    // Parse CSV data and return as an array of arrays
-    // Example implementation:
-    var lines = csvData.split('\n');
-    var data = [];
-    lines.forEach(function(line) {
-        data.push(line.split(','));
-    });
-    return data;
-}
-
+// Function to display data in the table
 function displayData(data) {
     var table = document.getElementById('dataTable');
     var thead = table.querySelector('thead');
@@ -49,68 +114,13 @@ function displayData(data) {
     }
 }
 
-
-// Sample data
-const products = [
-    { id: 1, name: "Product A", category: "Category X" },
-    { id: 2, name: "Product B", category: "Category Y" },
-    // Add more sample data
-];
-
-// Function to populate the table with data
-function populateTable(data) {
-    const table = document.getElementById("dataTable");
-    // Clear previous data
-    table.innerHTML = "";
-    // Add table headers
-    const headers = Object.keys(data[0]);
-    const headerRow = table.insertRow();
-    headers.forEach(header => {
-        const th = document.createElement("th");
-        th.textContent = header.toUpperCase();
-        headerRow.appendChild(th);
+// Function to parse CSV data
+function parseCSV(csvData) {
+    var lines = csvData.split('\n');
+    var data = [];
+    lines.forEach(function(line) {
+        data.push(line.split(','));
     });
-    // Add table data
-    data.forEach(item => {
-        const row = table.insertRow();
-        headers.forEach(header => {
-            const cell = row.insertCell();
-            let value = item[header];
-            if (header === "Gender" && !value) {
-                value = item["Organization Country"]; // Fill missing Gender with Organization Country
-            }
-            cell.textContent = value || '-';
-            
-        });
-    });
+    return data;
 }
 
-
-
-// Function to filter data based on search input
-function filterData(searchValue, filterBy) {
-    const filteredData = products.filter(product => {
-        return product[filterBy].toLowerCase().includes(searchValue.toLowerCase());
-    });
-    populateTable(filteredData);
-}
-
-// Event listener for search input
-document.getElementById("searchInput").addEventListener("input", function() {
-    const searchValue = this.value.trim();
-    const filterBy = document.getElementById("filterDropdown").value;
-    filterData(searchValue, filterBy);
-});
-
-// Function to show pop-up
-function showPopup() {
-    const popup = document.getElementById("popup");
-    popup.style.display = "block";
-    // Customize pop-up content and functionality as needed
-}
-
-// Function to close pop-up
-function closePopup() {
-    const popup = document.getElementById("popup");
-    popup.style.display = "none";
-}

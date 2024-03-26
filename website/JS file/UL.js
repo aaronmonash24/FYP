@@ -1,3 +1,8 @@
+document.getElementById('selectFileButton').addEventListener('click', function() {
+    document.getElementById('filename').click();
+});
+
+
 document.getElementById('filename').addEventListener('change', function() {
     var input = this;
     var output = document.getElementById('selectedFileName');
@@ -15,16 +20,16 @@ document.getElementById('uploadButton').addEventListener('click', function() {
     if (fileInput.files.length > 0) {
         var file = fileInput.files[0];
         var reader = new FileReader();
+        
         reader.onload = function(event) {
             var csvData = event.target.result;
-            // Redirect to PC page with CSV data
-            window.location.href = 'PC.html?data=' + encodeURIComponent(csvData);
+            sessionStorage.setItem('csvData', csvData); // Store CSV data in session storage
+            window.location.href = 'PC.html'; // Redirect to PC.html
         };
+        
         reader.readAsText(file);
     } else {
         // Display a message to the user to select a file
         alert('Please select a file.');
     }
 });
-
-

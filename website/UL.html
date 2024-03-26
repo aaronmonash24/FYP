@@ -7,12 +7,9 @@
     <title>Title</title>
 </head>
 <body>
-    <body>
-        <section class="section-with-blue-background">
-            <div class="header-title">Upload File</div>
-        </section>
-        <!-- Rest of your content goes here -->
-    </body>
+    <section class="section-with-blue-background">
+        <div class="header-title">Upload File</div>
+    </section>
     <div class="sidebar">
         <div class="logo">
             <img src="IMG file/logo.PNG" alt="Logo">
@@ -26,23 +23,19 @@
             </ul>
         </nav>
     </div>
-    <form id="uploadForm" enctype="multipart/form-data">
-        <div class="file-upload-container">
-            <div class="select-file-container">
-                <input type="file" id="filename" name="filename" accept=".csv" style="display: none;">
-                <label for="filename" class="rectangle-s" id="selectFileButton">
-                    Select File
-                </label>
-                <span id="selectedFileName"></span>
-            </div>
-            <div class="upload-button-container">
-                <button type="button" id="uploadButton">Upload</button>
-            </div>
+    <div class="file-upload-container">
+        <div class="select-file-container">
+            <input type="file" id="filename" accept=".csv" style="display: none;">
+            <label for="filename" class="rectangle-s" id="selectFileButton">
+                Select File
+            </label>
+            <span id="selectedFileName"></span>
         </div>
-    </form>
-    
-    
-    
+        <div class="upload-button-container">
+            <button type="button" id="uploadButton">Upload</button>
+        </div>
+    </div>
+    <button id="selectFileButton" class="rectangle-s">Select File</button>
 
     <div class="rectangle-container">
         <div class="rectangle"></div>

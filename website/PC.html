@@ -1,44 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="CSS/PC.css" />
-    <title>Title</title>
-  </head>
-  <body>
-    <body>
-      <section class="section-with-blue-background">
-          <div class="header-title">Product Comparison</div>
-      </section>
-      <!-- Rest of your content goes here -->
-  </body>
-  <div class="search-container">
-    <input type="text" id="searchInput" placeholder="Search by ID...">
-    <select id="filterDropdown">
-        <option value="name">Name</option>
-        <option value="category">Category</option>
-        <!-- Add more options as needed -->
-    </select>
-    <button onclick="showPopup()">Select Fields</button>
-</div>
-
-<div id="popup" class="popup">
-    <!-- Pop-up content goes here -->
-</div>
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Comparison</title>
+    <link rel="stylesheet" type="text/css" href="CSS/PC.css">
+</head>
+<body>
+    <section class="section-with-blue-background">
+        <div class="header-title">Product Comparison</div>
+    </section>
     <div class="sidebar">
-      <div class="logo">
-        <img src="IMG file/logo.PNG" alt="Logo" />
-      </div>
-      <nav class="menu">
-        <ul>
-          <li><a href="LI.html">Log In</a></li>
-          <li><a href="UL.html">Upload File</a></li>
-          <li><a href="DB.html">Dashboard</a></li>
-          <li><a href="PC.html">Product Comparison</a></li>
-        </ul>
-      </nav>
+        <div class="logo">
+            <img src="IMG file/logo.PNG" alt="Logo">
+        </div>
+        <nav class="menu">
+            <ul>
+                <li><a href="LI.html">Log In</a></li>
+                <li><a href="UL.html">Upload File</a></li>
+                <li><a href="DB.html">Dashboard</a></li>
+                <li><a href="PC.html">Product Comparison</a></li>
+            </ul>
+        </nav>
     </div>
     <style>
       /* Add your CSS styles here */
@@ -61,10 +44,10 @@
       th {
           background-color: #f2f2f2;
       }
-  </style>
-</head>
-<body>
-  <div id="tableContainer">
+    </style>
+    </head>
+    <body>
+    <div id="tableContainer">
       <table id="dataTable">
           <!-- Table headers will be added dynamically -->
           <thead>
@@ -76,7 +59,22 @@
               <!-- Table rows will be added dynamically -->
           </tbody>
       </table>
+    </div>
+
+    <!-- Popup -->
+<div id="popup" class="popup">
+  <div class="popup-content">
+      <span class="close-btn" onclick="closePopup()">&times;</span>
+      <h2>Select Fields</h2>
+      <!-- Dropdown container -->
+      <div id="dropdownContainer"></div>
+      <!-- Add and remove dropdown buttons -->
+      <button onclick="addDropdown()">Add Dropdown</button>
+      <button onclick="removeDropdown()">Remove Dropdown</button>
+      <button onclick="submitSelection()">Submit</button>
   </div>
+</div>
     <script src="JS file/PC.js"></script>
-  </body>
+</body>
 </html>
+
