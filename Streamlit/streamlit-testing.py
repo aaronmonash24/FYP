@@ -45,6 +45,7 @@ df_selection = df[df.Category.isin(selection)]
 df_editor = st.dataframe(df_selection)
 
 print("Hello")
+<<<<<<< HEAD
 
 
 def insert_chunks(df):
@@ -64,3 +65,7 @@ def insert_chunks(df):
     t_end = time()
 
     print('inserted another chunk, took %.3f second' % (t_end - t_start))
+=======
+print("Hello")
+
+>>>>>>> 35614cb5b655a8300fd4c26104444d34fc13606f
