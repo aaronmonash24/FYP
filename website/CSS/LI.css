@@ -28,7 +28,7 @@ body {
 }
 
 .header-title {
-  font-family: 'fairfax', sans-serif;
+  font-family: "fairfax", sans-serif;
   font-size: 450%;
   color: #ffff9e;
   position: absolute;
@@ -79,7 +79,6 @@ body {
   left: 1%;
   z-index: 1001;
 }
-
 
 .menu {
   margin-top: 90px; /* Adjust the margin to move the menu lower */

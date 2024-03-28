@@ -18,4 +18,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+// get ref to database services
+
 const analytics = getAnalytics(app);
