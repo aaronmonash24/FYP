@@ -7,8 +7,8 @@ import pandas as pd
 connection = mysql.connector.connect(
     host = 'localhost',
     user = 'root',
-    password = '',
-    database = ''
+    password = 'Keer2001!',
+    database = 'new_schema'
 )
 
 
