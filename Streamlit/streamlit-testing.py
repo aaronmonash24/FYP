@@ -8,12 +8,12 @@ import numpy as np
 connection = mysql.connector.connect(
     host = 'localhost',
     user = 'root',
-    password = '',
-    database = ''
+    password = 'atsu0218',
+    database = 'fyp'
 )
 
 cursor = connection.cursor()
-cursor.execute("Select * from food2")
+cursor.execute("select * from new_table")
 data = cursor.fetchall()
 
 # create dataframe
