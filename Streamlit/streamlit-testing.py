@@ -9,7 +9,7 @@ connection = mysql.connector.connect(
     host = 'localhost',
     user = 'root',
     password = 'root',
-    database = ''
+    database = 'hobbies'
 )
 
 
@@ -19,9 +19,10 @@ print('connected')
 
 # connect to mysql
 cursor = connection.cursor()
-cursor.execute("Select * from hobby")
+cursor.execute("Select * from food2 where ID=1")
 data = cursor.fetchall()
 print(cursor.column_names)
+
 def insert_chunks(df):
     df_iter = pd.read_csv(df, iterator=True, chunksize=100000)
     
@@ -41,6 +42,7 @@ def insert_chunks(df):
         t_end = time()
 
         print('inserted another chunk, took %.3f second' % (t_end - t_start))
+
 insert_chunks("hobbies_df.csv")
 
 # search bar
