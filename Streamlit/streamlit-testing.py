@@ -3,6 +3,8 @@ import mysql.connector
 import pandas as pd
 import statsmodels.api as sm 
 import numpy as np
+from sqlalchemy import create_engine
+from time import  time
 
 # connect mysql
 connection = mysql.connector.connect(
@@ -13,7 +15,7 @@ connection = mysql.connector.connect(
 )
 
 cursor = connection.cursor()
-cursor.execute("Select * from food2 where ID =1")
+cursor.execute("Select * from food2 ")
 data = cursor.fetchall()
 print(cursor.column_names)
 
@@ -37,8 +39,8 @@ def insert_chunks(df):
 
         print('inserted another chunk, took %.3f second' % (t_end - t_start))
 
-insert_chunks("hobbies_df.csv")
-cursor.execute("Select * from food2")
+#insert_chunks("hobbies_df.csv")
+cursor.execute("Select * from food2 ")
 data = cursor.fetchall()
 
 # create dataframe
@@ -52,14 +54,12 @@ def calculate_ped(group):
     X = sm.add_constant(group['Price'])
     model = sm.OLS(group['Quantity'], X).fit()
     price_coef = model.params['Price']
-    # mean_sellprice = group['Price'].mean()
-    # mean_quantity = group['Quantity'].mean()
-    # ped = price_coef * (mean_sellprice / mean_quantity)
-    group.loc[:, 'PED'] = price_coef # Assign the computed PED values to the 'PED' column
-
-    return group
-
-df = df.groupby('ID').apply(calculate_ped).reset_index(drop=True)
+    mean_sellprice = np.mean(group['Price'])
+    mean_quantity = np.mean(group['Quantity'])
+    ped = price_coef * (mean_sellprice / mean_quantity)
+    return ped
+df_2=df.groupby('ID').apply(calculate_ped).reset_index(drop=True)
+#df = df.groupby('ID').apply(calculate_ped).reset_index(drop=True)
 
 
 # search bar
@@ -79,7 +79,7 @@ df_selection = df[df.Category.isin(selection)]
 
 # Display DataFrame
 df_editor = st.dataframe(df_selection)
-
+df_editor=st.dataframe(df_2)
 print("Hello")
 
 
