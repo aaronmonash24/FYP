@@ -1,21 +1,15 @@
 import streamlit as st
 import mysql.connector
 import pandas as pd
-<<<<<<< HEAD
-from time import time
-from sqlalchemy import create_engine
-
-=======
 import statsmodels.api as sm 
 import numpy as np
->>>>>>> 683937b56ccfc7b9f316b7e6fed7417926a23d19
 
 # connect mysql
 connection = mysql.connector.connect(
     host = 'localhost',
     user = 'root',
 <<<<<<< HEAD
-    password = 'root',
+    password = '',
 =======
     password = '',
 >>>>>>> 683937b56ccfc7b9f316b7e6fed7417926a23d19
