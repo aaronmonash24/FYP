@@ -35,7 +35,7 @@ def insert_chunks(df):
         t_end = time()
 
         print('inserted another chunk, took %.3f second' % (t_end - t_start))
-insert_chunks("hobbies_df.csv")
+
 cursor.execute("Select * from food2")
 data = cursor.fetchall()
 
