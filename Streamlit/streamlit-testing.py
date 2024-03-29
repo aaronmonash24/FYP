@@ -8,16 +8,11 @@ import numpy as np
 connection = mysql.connector.connect(
     host = 'localhost',
     user = 'root',
-<<<<<<< HEAD
     password = '',
-=======
-    password = '',
->>>>>>> 683937b56ccfc7b9f316b7e6fed7417926a23d19
     database = ''
 )
 
 cursor = connection.cursor()
-<<<<<<< HEAD
 cursor.execute("Select * from hobby")
 data = cursor.fetchall()
 print(cursor.column_names)
@@ -41,7 +36,6 @@ def insert_chunks(df):
 
         print('inserted another chunk, took %.3f second' % (t_end - t_start))
 insert_chunks("hobbies_df.csv")
-=======
 cursor.execute("Select * from food2")
 data = cursor.fetchall()
 
@@ -65,7 +59,6 @@ def calculate_ped(group):
 
 df = df.groupby('ID').apply(calculate_ped).reset_index(drop=True)
 
->>>>>>> 683937b56ccfc7b9f316b7e6fed7417926a23d19
 
 # search bar
 text_search = st.text_input("Search by ID", value="")
@@ -83,7 +76,6 @@ df_selection = df[df.Category.isin(selection)]
 
 
 # Display DataFrame
-<<<<<<< HEAD
 df_editor = st.dataframe(df_selection)
 
 print("Hello")
@@ -97,6 +89,3 @@ print("Hello")
 
 
 
-=======
-df_editor = st.dataframe(df_selection)
->>>>>>> 683937b56ccfc7b9f316b7e6fed7417926a23d19
