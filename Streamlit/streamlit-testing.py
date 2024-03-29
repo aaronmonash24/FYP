@@ -9,7 +9,7 @@ connection = mysql.connector.connect(
     host = 'localhost',
     user = 'root',
     password = 'root',
-    database = 'hobbies'
+    database = ''
 )
 
 
@@ -27,16 +27,13 @@ def insert_chunks(df):
     
     chunk=next(df_iter).dropna()
     engine = create_engine('mysql://root:root@localhost:3306/hobbies')
-    t_start = time()
-    chunk.to_sql(name='hobby', con=engine, if_exists='append',schema='hobbies',index=False)
-    t_end = time()
-    print('inserted another chunk, took %.3f second' % (t_end - t_start))
+
 
     
-    while True: 
+    for chunk in df_iter :
         t_start = time()
 
-        chunk = next(df_iter).dropna()
+        chunk = chunk.dropna()
 
         
         chunk.to_sql(name='hobby', con=engine, if_exists='append',schema='hobbies',index=False)
@@ -45,17 +42,7 @@ def insert_chunks(df):
 
         print('inserted another chunk, took %.3f second' % (t_end - t_start))
 insert_chunks("hobbies_df.csv")
-"""
-df_iter = pd.read_csv("hobbies_df.csv", iterator=True, chunksize=100000)
-    
-chunk=next(df_iter).dropna()
-engine = create_engine('mysql://root:root@localhost:3306/hobbies')
-t_start = time()
-chunk.to_sql(name='hobby', con=engine, if_exists='append',schema='hobbies',index=False)
-t_end = time()
-print('inserted another chunk, took %.3f second' % (t_end - t_start))
-df = pd.DataFrame(data,columns = cursor.column_names)
-"""
+
 # search bar
 text_search = st.text_input("Search by ID", value="")
 
