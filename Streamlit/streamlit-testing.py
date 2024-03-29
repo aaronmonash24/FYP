@@ -8,12 +8,12 @@ import numpy as np
 connection = mysql.connector.connect(
     host = 'localhost',
     user = 'root',
-    password = '',
-    database = ''
+    password = 'root',
+    database = 'hobbies'
 )
 
 cursor = connection.cursor()
-cursor.execute("Select * from hobby")
+cursor.execute("Select * from food2 where ID =1")
 data = cursor.fetchall()
 print(cursor.column_names)
 def insert_chunks(df):
