@@ -4,6 +4,7 @@ import pandas as pd
 import statsmodels.api as sm 
 import numpy as np
 from sqlalchemy import create_engine
+from streamlit_modal import Modal
 from time import  time
 
 # connect mysql
@@ -86,6 +87,16 @@ print("Hello")
 open_model = st.button("Open Chart")
 modal = Modal(key = "Demo key",title = "Testing" )
 
+# display button
+modal_btn = st.button("Open Chart")
+modal = Modal(key = "Demo key",title = "Testing" )
+
+if modal_btn:
+    modal.open()
+
+if modal.is_open():
+    with modal.container():
+        st.title("Testing")
 
 
 
