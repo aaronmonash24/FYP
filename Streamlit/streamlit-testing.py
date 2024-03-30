@@ -82,6 +82,9 @@ df_editor = st.dataframe(df_selection)
 df_editor=st.dataframe(df_2)
 print("Hello")
 
+# display button
+open_model = st.button("Open Chart")
+modal = Modal(key = "Demo key",title = "Testing" )
 
 
 
