@@ -15,6 +15,10 @@ connection = mysql.connector.connect(
     database = 'hobbies'
 )
 
+col1, col2, col3 = st.columns(3)
+col1.metric("Profit", "70 M", "1.2% ")
+col2.metric("Revenue", "210.9", "1.8%")
+col3.metric("Sales", "31.2", "4%")
 cursor = connection.cursor()
 #cursor.execute("Select * from food2 ")
 #data = cursor.fetchall()
@@ -81,8 +85,11 @@ final=[]
 for i in range(len(first_values)):
     X = sm.add_constant(test.loc[first_values[i]]['Price'])
     model = sm.OLS(test.loc[first_values[i]]['Quantity'], X).fit()
-    final.append([first_values[i],model.params['Price']])
-final=pd.DataFrame(final,columns=["Product ID","PED"])
+    mean_sellprice = np.mean(test.loc[first_values[i]]['Price'])
+    mean_quantity = np.mean(test.loc[first_values[i]]['Quantity'])
+    ped = model.params['Price'] * (mean_sellprice / mean_quantity)
+    final.append([first_values[i],ped])
+final=pd.DataFrame(final,columns=["Product ID","Predicted PED"])
 #df = df.groupby('ID').apply(calculate_ped).reset_index(drop=True)
 
 """
