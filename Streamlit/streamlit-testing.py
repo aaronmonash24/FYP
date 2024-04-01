@@ -49,6 +49,7 @@ print('Total time took %.3f second' % (t_end - t_start))
 cursor.execute("Select * from food2 ")
 data = cursor.fetchall()
 
+
 # create dataframe
 st.title('my FIT3164 streamlit hehe')
 df = pd.DataFrame(data,columns = cursor.column_names)
@@ -90,6 +91,10 @@ for i in range(len(first_values)):
     ped = model.params['Price'] * (mean_sellprice / mean_quantity)
     final.append([first_values[i],ped])
 final=pd.DataFrame(final,columns=["Product ID","Predicted PED"])
+q=[]
+for i in range(len(first_values)):
+    q.append(test.loc[final['Product ID'][i]]['Quantity'].to_list())
+final[ 'Sales Chart'] = q
 #df = df.groupby('ID').apply(calculate_ped).reset_index(drop=True)
 
 """
@@ -112,14 +117,14 @@ df_selection = df[df.Category.isin(selection)]
 # Display DataFrame
 df_editor = st.dataframe(df_selection)
 """
-df_editor=st.dataframe(df.head(100))
-df_editor=st.dataframe(final)
+
+#df_editor=st.dataframe(df.head(100))
+df_editor=st.dataframe(final,column_config={"Sales Chart" :st.column_config.LineChartColumn(
+            "Sales Chart", y_min=0, y_max=50
+        )})
 #df_editor=st.dataframe(df_3)
 print("Hello")
 
-# display button
-open_model = st.button("Open Chart")
-modal = Modal(key = "Demo key",title = "Testing" )
 
 # display button
 modal_btn = st.button("Open Chart")
