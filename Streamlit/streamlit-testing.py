@@ -16,16 +16,15 @@ connection = mysql.connector.connect(
 )
 
 cursor = connection.cursor()
-cursor.execute("Select * from food2 ")
-data = cursor.fetchall()
-print(cursor.column_names)
+#cursor.execute("Select * from food2 ")
+#data = cursor.fetchall()
+#print(cursor.column_names)
 
 def insert_chunks(df):
     df_iter = pd.read_csv(df, iterator=True, chunksize=100000)
     
     chunk=next(df_iter).dropna()
     engine = create_engine('mysql://root:root@localhost:3306/hobbies')
-
 
     
     for chunk in df_iter :
@@ -34,13 +33,15 @@ def insert_chunks(df):
         chunk = chunk.dropna()
 
         
-        chunk.to_sql(name='hobby', con=engine, if_exists='append',schema='hobbies',index=False)
+        chunk.to_sql(name='food2', con=engine, if_exists='append',schema='hobbies',index=False)
 
         t_end = time()
 
         print('inserted another chunk, took %.3f second' % (t_end - t_start))
-
-#insert_chunks("hobbies_df.csv")
+t_start = time()
+#insert_chunks("hobbies.csv")
+t_end = time()
+print('Total time took %.3f second' % (t_end - t_start))
 cursor.execute("Select * from food2 ")
 data = cursor.fetchall()
 
@@ -51,17 +52,40 @@ df['Price'] = df['Price'].astype('float')
 df['Quantity'] = df['Quantity'].astype('int')
 
 # calculate PED
+
 def calculate_ped(group):
     X = sm.add_constant(group['Price'])
     model = sm.OLS(group['Quantity'], X).fit()
     price_coef = model.params['Price']
     mean_sellprice = np.mean(group['Price'])
     mean_quantity = np.mean(group['Quantity'])
-    ped = price_coef * (mean_sellprice / mean_quantity)
+    #ped = price_coef * (mean_sellprice / mean_quantity)
+    ped=mean_quantity
     return ped
-df_2=df.groupby('ID').apply(calculate_ped).reset_index(drop=True)
+
+
+
+
+
+
+
+#df_2=df.groupby(['YearMonth','ID']).apply(calculate_ped).reset_index(drop=True)
+#df_2=df.groupby(['ID','YearMonth'])
+
+
+df_2=df.groupby(['ID','YearMonth'])
+test = df_2.aggregate({'Quantity':np.sum,'Price':np.mean})
+first_values = sorted(pd.DataFrame([t[0] for t in test.index])[0].unique())
+final=[]
+# a version of calculate_ped, using this as its slightly diff and I dont wanna change things too much
+for i in range(len(first_values)):
+    X = sm.add_constant(test.loc[first_values[i]]['Price'])
+    model = sm.OLS(test.loc[first_values[i]]['Quantity'], X).fit()
+    final.append([first_values[i],model.params['Price']])
+final=pd.DataFrame(final,columns=["Product ID","PED"])
 #df = df.groupby('ID').apply(calculate_ped).reset_index(drop=True)
 
+"""
 
 # search bar
 text_search = st.text_input("Search by ID", value="")
@@ -80,7 +104,10 @@ df_selection = df[df.Category.isin(selection)]
 
 # Display DataFrame
 df_editor = st.dataframe(df_selection)
-df_editor=st.dataframe(df_2)
+"""
+df_editor=st.dataframe(df.head(100))
+df_editor=st.dataframe(final)
+#df_editor=st.dataframe(df_3)
 print("Hello")
 
 # display button
