@@ -42,6 +42,9 @@ def insert_chunks(df):
         t_end = time()
 
         print('inserted another chunk, took %.3f second' % (t_end - t_start))
+
+
+
 t_start = time()
 #insert_chunks("hobbies.csv")
 t_end = time()
@@ -52,6 +55,11 @@ data = cursor.fetchall()
 
 # create dataframe
 st.title('my FIT3164 streamlit hehe')
+
+# Discount slider
+discount = st.slider('How much discount would you like to give', 0, 100, 0)
+
+
 df = pd.DataFrame(data,columns = cursor.column_names)
 df['Price'] = df['Price'].astype('float')
 df['Quantity'] = df['Quantity'].astype('int')
@@ -64,15 +72,8 @@ def calculate_ped(group):
     price_coef = model.params['Price']
     mean_sellprice = np.mean(group['Price'])
     mean_quantity = np.mean(group['Quantity'])
-    #ped = price_coef * (mean_sellprice / mean_quantity)
-    ped=mean_quantity
+    ped = price_coef * (mean_sellprice / mean_quantity)
     return ped
-
-
-
-
-
-
 
 #df_2=df.groupby(['YearMonth','ID']).apply(calculate_ped).reset_index(drop=True)
 #df_2=df.groupby(['ID','YearMonth'])
@@ -91,14 +92,15 @@ for i in range(len(first_values)):
     ped = model.params['Price'] * (mean_sellprice / mean_quantity)
     final.append([first_values[i],ped])
 final=pd.DataFrame(final,columns=["Product ID","Predicted PED"])
+
+#adding sales quantity to final data frame
 q=[]
 for i in range(len(first_values)):
     q.append(test.loc[final['Product ID'][i]]['Quantity'].to_list())
 final[ 'Sales Chart'] = q
-#df = df.groupby('ID').apply(calculate_ped).reset_index(drop=True)
 
+final['Sales Chart']
 """
-
 # search bar
 text_search = st.text_input("Search by ID", value="")
 m1 = df["ID"].str.contains(text_search)
