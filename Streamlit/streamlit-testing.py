@@ -13,7 +13,7 @@ connection = mysql.connector.connect(
 )
 
 cursor = connection.cursor()
-cursor.execute("select * from new_table")
+cursor.execute("select * from fyp_table")
 data = cursor.fetchall()
 
 # create dataframe
@@ -45,11 +45,30 @@ if text_search:
 
 
 # filter category via 
-list = df.Category.unique()
-selection = st.multiselect('Select list', list, ['Food','Hobbies','Households'])
-df_selection = df[df.Category.isin(selection)]
+categories_list = ['Food', 'Household', 'Hobbies']  # Explicitly define the list of categories
 
+# Provide default values for multiselect
+default_values = categories_list  # Set default values to all available categories
 
+# Multiselect with adjusted default values
+selection = st.multiselect('Select list', categories_list, default_values)
+
+# Filter DataFrame based on selection
+df_selection = df[df['Category'].isin(selection)]
+
+df_editor = st.dataframe(df_selection)
+
+# filter category via 
+state_list = ['CA_1', 'CA_2', 'CA_3', 'TX_1', 'TX_2', 'WI_1', 'WI_2']  # Explicitly define the list of categories
+
+# Provide default values for multiselect
+default_values = state_list  # Set default values to all available categories
+
+# Multiselect with adjusted default values
+selection = st.multiselect('Select list', state_list, default_values)
+
+# Filter DataFrame based on selection
+df_selection = df[df['State_ID'].isin(selection)]
 
 # Display DataFrame
 df_editor = st.dataframe(df_selection)
