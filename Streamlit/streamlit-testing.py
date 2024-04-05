@@ -138,6 +138,13 @@ if modal_btn:
 if modal.is_open():
     with modal.container():
         st.title("Testing")
+        ID_search = st.text_input("Search by ID", value="",key="idsearch")
+        st.dataframe(df_selection)
+        
+        m2 = df["ID"].str.contains(ID_search)
+        df_search = df[m2]
+        if ID_search:
+            st.line_chart(data = df_search, x= df["ID"], y= df["Price"],use_container_width=True)
 
 
 
