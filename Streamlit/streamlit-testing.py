@@ -8,18 +8,14 @@ from streamlit_modal import Modal
 from time import  time
 
 # connect mysql
-connection = mysql.connector.connect(
-    host = 'localhost',
-    user = 'root',
-    password = 'root',
-    database = 'hobbies'
-)
 
+st.title('Retail Price Optimization')
 col1, col2, col3 = st.columns(3)
 col1.metric("Profit", "70 M", "1.2% ")
 col2.metric("Revenue", "210.9", "1.8%")
 col3.metric("Sales", "31.2", "4%")
-cursor = connection.cursor()
+
+
 #cursor.execute("Select * from food2 ")
 #data = cursor.fetchall()
 #print(cursor.column_names)
@@ -45,44 +41,59 @@ def insert_chunks(df):
 
 
 
-t_start = time()
+
 #insert_chunks("hobbies.csv")
+t_start = time()
+@st.cache_data
+def fetch_data():
+    
+    connection = mysql.connector.connect(
+    host = 'localhost',
+    user = 'root',
+    password = 'root',
+    database = 'hobbies'
+    )
+    cursor = connection.cursor()
+    cursor.execute("Select * from food2 ")
+    data = cursor.fetchall()
+    print(cursor.column_names)
+    df = pd.DataFrame(data,columns = cursor.column_names)
+    return data,df
+
+data,df=fetch_data()
 t_end = time()
-print('Total time took %.3f second' % (t_end - t_start))
-cursor.execute("Select * from food2 ")
-data = cursor.fetchall()
-
-
+print('Fetching data total time took %.3f second' % (t_end - t_start))
 # create dataframe
-st.title('my FIT3164 streamlit hehe')
+
 
 # Discount slider
-discount = st.slider('How much discount would you like to give', 0, 100, 0)
+discount = st.slider('How much discount would you like to give', 0, 100, 10)
 
 
-df = pd.DataFrame(data,columns = cursor.column_names)
+
+
 df['Price'] = df['Price'].astype('float')
 df['Quantity'] = df['Quantity'].astype('int')
 
 # calculate PED
 
-def calculate_ped(group):
-    X = sm.add_constant(group['Price'])
-    model = sm.OLS(group['Quantity'], X).fit()
-    price_coef = model.params['Price']
-    mean_sellprice = np.mean(group['Price'])
-    mean_quantity = np.mean(group['Quantity'])
-    ped = price_coef * (mean_sellprice / mean_quantity)
-    return ped
+t_start = time()
 
-#df_2=df.groupby(['YearMonth','ID']).apply(calculate_ped).reset_index(drop=True)
-#df_2=df.groupby(['ID','YearMonth'])
+@st.cache_data
+def group_df(df):
+    temp=df.groupby(['ID','YearMonth','Category','State_ID'])
+
+    return temp
+df_2=group_df(df)
+
+t_end = time()
+print('Group data total time took %.3f second' % (t_end - t_start))
 
 
-df_2=df.groupby(['ID','YearMonth'])
 test = df_2.aggregate({'Quantity':np.sum,'Price':np.mean})
 first_values = sorted(pd.DataFrame([t[0] for t in test.index])[0].unique())
 final=[]
+t_start = time()
 # a version of calculate_ped, using this as its slightly diff and I dont wanna change things too much
 for i in range(len(first_values)):
     X = sm.add_constant(test.loc[first_values[i]]['Price'])
@@ -90,61 +101,79 @@ for i in range(len(first_values)):
     mean_sellprice = np.mean(test.loc[first_values[i]]['Price'])
     mean_quantity = np.mean(test.loc[first_values[i]]['Quantity'])
     ped = model.params['Price'] * (mean_sellprice / mean_quantity)
-    final.append([first_values[i],ped])
-final=pd.DataFrame(final,columns=["Product ID","Predicted PED"])
+    last_quantity=test.loc[first_values[i]]['Quantity'][-1]
+    last_price=test.loc[first_values[i]]['Price'][-1]
+    new_quantity=last_quantity*(1+ped*(last_price*0.9-last_price)/last_price)
+    cat=test.loc[first_values[i]].index[0][1]
+    state=test.loc[first_values[i]].index[0][2]
+    final.append([first_values[i],cat,state,ped,abs(new_quantity)])
+final=pd.DataFrame(final,columns=["Product ID","Category","State ID","Predicted PED","Predicted Quantity"])
 
+t_end = time()
+print('Predict data total time took %.3f second' % (t_end - t_start))
+
+
+#adding sales quantity to final data frame
 #adding sales quantity to final data frame
 q=[]
 for i in range(len(first_values)):
     q.append(test.loc[final['Product ID'][i]]['Quantity'].to_list())
 final[ 'Sales Chart'] = q
 
-final['Sales Chart']
-"""
-# search bar
 text_search = st.text_input("Search by ID", value="")
 m1 = df["ID"].str.contains(text_search)
 df_search = df[m1]
 if text_search:
     st.write(df_search)
 
+# filter category via 
+categories_list = ['Food', 'Household', 'Hobbies']  # Explicitly define the list of categories
+
+# Provide default values for multiselect
+default_values = categories_list  # Set default values to all available categories
+
+# Multiselect with adjusted default values
+selection = st.multiselect('Select Cetegory', categories_list, default_values)
+
+# Filter DataFrame based on selection
+df_selection = final[final['Category'].isin(selection)]
+
 
 # filter category via 
-list = df.Category.unique()
-selection = st.multiselect('Select list', list, ['Food','Hobbies','Households'])
-df_selection = df[df.Category.isin(selection)]
+state_list = ['CA_1', 'CA_2', 'CA_3', 'TX_1', 'TX_2', 'WI_1', 'WI_2']  # Explicitly define the list of categories
+
+# Provide default values for multiselect
+default_values = state_list  # Set default values to all available categories
+
+# Multiselect with adjusted default values
+selection = st.multiselect('Select State ID', state_list, default_values)
+
+# Filter DataFrame based on selection
+df_selection = final[final['State ID'].isin(selection)]
 
 
-
-# Display DataFrame
-df_editor = st.dataframe(df_selection)
-"""
 
 #df_editor=st.dataframe(df.head(100))
 df_editor=st.dataframe(final,column_config={"Sales Chart" :st.column_config.LineChartColumn(
-            "Sales Chart", y_min=0, y_max=50
+            "Sales Chart (Last 30 Days)", y_min=0, y_max=50
         )})
 #df_editor=st.dataframe(df_3)
 print("Hello")
 
 
-# display button
-modal_btn = st.button("Open Chart")
-modal = Modal(key = "Demo key",title = "Testing" )
 
-if modal_btn:
-    modal.open()
 
-if modal.is_open():
-    with modal.container():
-        st.title("Testing")
-        ID_search = st.text_input("Search by ID", value="",key="idsearch")
-        st.dataframe(df_selection)
-        
-        m2 = df["ID"].str.contains(ID_search)
-        df_search = df[m2]
-        if ID_search:
-            st.line_chart(data = df_search, x= df["ID"], y= df["Price"],use_container_width=True)
+# filter category via 
+#list = df.Category.unique()
+#selection = st.multiselect('Select list', list, ['Food','Hobbies','Households'])
+#df_selection = df[df.Category.isin(selection)]
+
+
+
+
+
+
+
 
 
 
