@@ -52,12 +52,8 @@ delta_sales_percentage = ((delta_sales) / previous_total_sales * 100) if previou
 # st.metric(label="Total Revenue for 30 Days Ending " , value=f"{total_revenue:,.2f}",delta=f"{delta_revenue_percentage:.2f}%")
 # st.metric(label="Total Sales for 30 Days Ending " , value=f"{total_sales:,}",delta=f"{delta_sales_percentage:.2f}%")
 
-
-# col4.bar_chart({"hobbies": 30, "Food": 50, "Leisure": 15},)
-df = pd.DataFrame({"category": ["Food", "hobbies", "Household"], "total_sales": [50, 35, 20]})
-# fig=px.bar(df,x='total_sales',y='category', orientation='h')
-# st.write(fig)
-
+# df for bar graph
+bar_df = pd.DataFrame({"category": ["Food", "hobbies", "Household"], "total_sales": [50, 35, 20]})
 
 # sales trend analysis
 chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
@@ -73,8 +69,8 @@ with placeholder.container():
         fig_col1.line_chart(chart_data)
         
     with fig_col2:
-        fig=px.bar(df,x='total_sales',y='category', orientation='h')
-        # Adjusting figure layout properties to make it responsive
+        fig=px.bar(bar_df,x='total_sales',y='category', orientation='h')
+        # Adjusting figure layout properties to make it aligned
         fig.update_layout(
             autosize=True,
             margin=dict(l=20, r=20, t=20, b=150)
