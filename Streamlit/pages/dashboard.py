@@ -35,8 +35,6 @@ totalbycat = filtered_data[["cat_id", "total"]].groupby("cat_id", as_index= Fals
 col_21, col_22 = st.columns([1,1])
 
 # sales trend analysis
-print(df.head())
-print(df.info())
 chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
 # col_21.line_chart(chart_data)
 # col_22.write(chart_data)
@@ -49,12 +47,12 @@ with placeholder.container():
         
     with fig_col2:
         pass
-        # fig=px.bar(df,x='total_sales',y='category', orientation='h')
-        # # Adjusting figure layout properties to make it responsive
-        # fig.update_layout(
-        #     autosize=True,
-        #     margin=dict(l=20, r=20, t=20, b=150)
-        # )
-        # st.plotly_chart(fig, use_container_width=True)
+        fig=px.bar(totalbycat,x='total',y='cat_id', orientation='h', text_auto=True)
+        # Adjusting figure layout properties to make it responsive
+        fig.update_layout(
+            autosize=True,
+            margin=dict(l=20, r=20, t=20, b=150)
+        )
+        st.plotly_chart(fig, use_container_width=True)
         
         
