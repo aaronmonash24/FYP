@@ -25,6 +25,11 @@ df["date"] = df["date"].apply(lambda x: pd.to_datetime(x))
 # get the searching range for the data
 latest_date = df["date"].max()
 search_date = latest_date - timedelta(days=28)
+filtered_data = df.loc[(df["date"] <= latest_date) & (df["date"] > search_date)].copy()
+
+# filter the total revenue by category
+filtered_data["total"] = filtered_data["sold"] * filtered_data["sell_price"]
+totalbycat = filtered_data[["cat_id", "total"]].groupby("cat_id", as_index= False).sum()
 
 # second row
 col_21, col_22 = st.columns([1,1])
