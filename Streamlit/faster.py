@@ -98,7 +98,7 @@ def calc_ped(grouped,values):
         new_quantity=last_quantity*(1+ped*(last_price*0.9-last_price)/last_price)
         cat=grouped.loc[values[i]].index[0][1]
         state=grouped.loc[values[i]].index[0][2]
-        final.append([values[i],cat,state,ped,abs(new_quantity)])
+        final.append([values[i],cat,state,-abs(ped),abs(new_quantity)])
     final=pd.DataFrame(final,columns=["Product ID","Category","State ID","Predicted PED","Predicted Quantity"])
     return final
 
