@@ -70,7 +70,7 @@ with placeholder.container():
         st.plotly_chart(fig2, use_container_width=True)
         
     with fig_col2:
-        fig=px.bar(bar_df,x='sold',y='cat_id', orientation='h', text_auto=True, labels={'sold': 'Quantity Sold', 'cat_id':'Category'})
+        fig=px.bar(bar_df,x='sold',y='cat_id', orientation='h', text_auto=True, labels={'sold': 'Quantity Sold', 'cat_id':'Category'},color = 'cat_id')
         # Adjusting figure layout properties to make it aligned
         fig.update_layout(
             autosize=True,
