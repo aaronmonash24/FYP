@@ -8,7 +8,11 @@ from streamlit_modal import Modal
 from time import  time
 import plotly.express as px
 
-
+"""
+Author: Yu Wen Liew 32882807
+This page is responsible to show the forecasted sales of a single product based on the PED obtained and the LGBM model used to forecast.
+The dropdown list shows the choice of product and discount rate is used to set the amount of discount given
+"""
 def insert_chunks(df):
     df_iter = pd.read_csv(df, iterator=True, chunksize=100000)
     
