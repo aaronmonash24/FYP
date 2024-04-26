@@ -32,11 +32,11 @@ previous_data = data[(data['date'] > start_of_previous_period) & (data['date'] <
 filtered_data ['revenue'] = filtered_data ['sell_price'] * filtered_data ['sold']
 previous_data ['revenue'] = previous_data ['sell_price'] * previous_data ['sold']
 
-# Calculate total revenue and sales for last 30 days
+# Calculate total revenue and sales for last 28 days
 total_revenue = filtered_data['revenue'].sum()  
 total_sales = filtered_data['sold'].sum() 
 
-# Calculate total revenue and sales for last 60 days
+# Calculate total revenue and sales for last 56 days
 previous_total_revenue = previous_data['revenue'].sum()
 previous_total_sales = previous_data['sold'].sum()
 
