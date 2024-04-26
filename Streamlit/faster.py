@@ -7,14 +7,11 @@ from sqlalchemy import create_engine
 from streamlit_modal import Modal
 from time import  time
 
-# connect mysql
-
 st.title('Retail Price Optimization')
 col1, col2, col3 = st.columns(3)
 col1.metric("Profit", "70 M", "1.2% ")
 col2.metric("Revenue", "210.9", "1.8%")
 col3.metric("Sales", "31.2", "4%")
-
 
 def insert_chunks(df):
     df_iter = pd.read_csv(df, iterator=True, chunksize=100000)
@@ -35,20 +32,20 @@ def insert_chunks(df):
 
         print('inserted another chunk, took %.3f second' % (t_end - t_start))
 
-
-
-
 #insert_chunks("hobbies.csv")
+discount = st.slider('How much discount would you like to give', 0, 100, 10) 
+
 t_start = time()
-@st.cache_data
-def fetch_data():
-    
-    connection = mysql.connector.connect(
+connection = mysql.connector.connect(
     host = 'localhost',
     user = 'root',
     password = 'root',
     database = 'hobbies'
     )
+@st.cache_data
+def fetch_data():
+    
+    
     cursor = connection.cursor()
     cursor.execute("Select * from food2 ")
     data = cursor.fetchall()
@@ -60,14 +57,6 @@ data,df=fetch_data()
 t_end = time()
 print('Fetching data total time took %.3f second' % (t_end - t_start))
 
-
-
-# Discount slider
-discount = st.slider('How much discount would you like to give', 0, 100, 10)
-
-
-
-
 df['Price'] = df['Price'].astype('float')
 df['Quantity'] = df['Quantity'].astype('int')
 
@@ -75,7 +64,7 @@ df['Quantity'] = df['Quantity'].astype('int')
 
 t_start = time()
 
-@st.cache_data
+
 def group_df(df):
     temp=df.groupby(['ID','YearMonth','Category','State_ID'])
 
@@ -85,9 +74,16 @@ df_2=group_df(df)
 t_end = time()
 print('Group data total time took %.3f second' % (t_end - t_start))
 
-
+t_start = time()
 test = df_2.aggregate({'Quantity':np.sum,'Price':np.mean})
 first_values = sorted(pd.DataFrame([t[0] for t in test.index])[0].unique())
+t_end = time()
+print('Aggregate data total time took %.3f second' % (t_end - t_start))
+
+
+t_start = time()
+
+# a version of calculate_ped, using this as its slightly diff and I dont wanna change things too much
 @st.cache_data
 def calc_ped(grouped,values):
     final=[]
@@ -102,17 +98,18 @@ def calc_ped(grouped,values):
         new_quantity=last_quantity*(1+ped*(last_price*0.9-last_price)/last_price)
         cat=grouped.loc[values[i]].index[0][1]
         state=grouped.loc[values[i]].index[0][2]
-        final.append([values[i],cat,state,ped,abs(new_quantity)])
+        final.append([values[i],cat,state,-abs(ped),abs(new_quantity)])
     final=pd.DataFrame(final,columns=["Product ID","Category","State ID","Predicted PED","Predicted Quantity"])
     return final
 
 final=calc_ped(test,first_values)
+
 t_end = time()
 print('Predict data total time took %.3f second' % (t_end - t_start))
 
 
-#adding sales quantity to final data frame
-#adding sales quantity to final data frame
+t_start = time()
+
 q=[]
 for i in range(len(first_values)):
     q.append(test.loc[final['Product ID'][i]]['Quantity'].to_list())
@@ -151,31 +148,10 @@ df_selection = final[final['State ID'].isin(selection)]
 
 
 
+#df_editor=st.dataframe(df.head(100))
 df_editor=st.dataframe(final,column_config={"Sales Chart" :st.column_config.LineChartColumn(
             "Sales Chart (Last 30 Days)", y_min=0, y_max=50
         )})
-
-
-
-
-
-
-# filter category via 
-#list = df.Category.unique()
-#selection = st.multiselect('Select list', list, ['Food','Hobbies','Households'])
-#df_selection = df[df.Category.isin(selection)]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#df_editor=st.dataframe(df_3)
+t_end = time()
+print('The rest total time took %.3f second' % (t_end - t_start))

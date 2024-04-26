@@ -12,7 +12,7 @@ st.markdown("# Dashboard")
 st.sidebar.header("Dashboard")
 
 # replace the datas inside with the data in local computer
-data = pd.read_csv("E:/backupFiles/Uni stuff/UNI SEM 6/testing file/3month.csv")
+data = pd.read_csv("3month.csv")
 data['date'] = pd.to_datetime(data['date'], errors='coerce')
 # Find the latest date in the data
 latest_date = data['date'].max()
