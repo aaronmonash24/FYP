@@ -4,6 +4,7 @@ import pandas as pd
 import statsmodels.api as sm 
 import numpy as np
 
+
 # connect mysql
 connection = mysql.connector.connect(
     host = 'localhost',
@@ -69,6 +70,25 @@ selection = st.multiselect('Select list', state_list, default_values)
 
 # Filter DataFrame based on selection
 df_selection = df[df['State_ID'].isin(selection)]
+df_editor = st.dataframe(df_selection)
 
 # Display DataFrame
-df_editor = st.dataframe(df_selection)
+
+uploaded_file = st.file_uploader("Choose a file")
+if uploaded_file is not None:
+    try:
+        # Read the file as a DataFrame
+        dataframe = pd.read_csv(uploaded_file)
+        # Display the DataFrame as a table
+        st.write(dataframe)
+    except Exception as e:
+        st.error(f"Error: {e}")
+
+try:
+    st.write(df)
+except Exception as e:
+        print(e)
+        st.write("Please Upload File to a different Application")
+
+
+
