@@ -19,7 +19,7 @@ Components:
 2. Bar Graphs: These are used to show discrete changes and comparisons across different categories or groups within the data collected over the past 30 days. 
 3. Line Graphs: These graphs are employed to depict continuous data over time, allowing for the observation of trends and the impact of day-to-day changes. 
 
-Author: Chloe Ang, Edrick Hendrick
+Author: Chloe Ang, Edrick Hendri
 """
 
 # Page configuration
