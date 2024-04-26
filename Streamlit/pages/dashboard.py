@@ -61,17 +61,15 @@ line_df = filtered_data[["cat_id", "date", "revenue"]].groupby(["cat_id", "date"
 placeholder = st.empty()
 with placeholder.container():
     col1, col2 =  st.columns([1,1])
-    col1.metric(label="Total Revenue for 30 Days Ending " , value=f"{total_revenue:,.2f}",delta=f"{delta_revenue_percentage:.2f}%")
-    col2.metric(label="Total Sales for 30 Days Ending " , value=f"{total_sales:,}",delta=f"{delta_sales_percentage:.2f}%")
+    col1.metric(label="Total Revenue for 28 Days Ending " , value=f"{total_revenue:,.2f}",delta=f"{delta_revenue_percentage:.2f}%")
+    col2.metric(label="Total Sales for 28 Days Ending " , value=f"{total_sales:,}",delta=f"{delta_sales_percentage:.2f}%")
 
     fig_col1, fig_col2 = st.columns([1,1])
     with fig_col1:
-        st.caption("Revenue Made over the last 28 days:")
         fig2=px.line(line_df,x='date',y='revenue', color='cat_id', labels={'date': 'Date', 'revenue':'Total Revenue'})
         st.plotly_chart(fig2, use_container_width=True)
         
     with fig_col2:
-        st.caption("quantity sold over the last 28 days:")
         fig=px.bar(bar_df,x='sold',y='cat_id', orientation='h', text_auto=True, labels={'sold': 'Quantity Sold', 'cat_id':'Category'})
         # Adjusting figure layout properties to make it aligned
         fig.update_layout(
