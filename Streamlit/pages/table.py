@@ -18,7 +18,7 @@ cursor.execute("select * from fyp_table")
 data = cursor.fetchall()
 
 # create dataframe
-st.title('my FIT3164 streamlit hehe')
+st.title('Table Page')
 df = pd.DataFrame(data,columns = cursor.column_names)
 df['Price'] = df['Price'].astype('float')
 df['Quantity'] = df['Quantity'].astype('int')
