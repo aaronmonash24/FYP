@@ -7,6 +7,7 @@ import numpy as np
 
 #In this page, we will allow users to explore the table by searching up the product by its ID,and filter product by category and store.
 #Moreover, we can upload file(limited to csv) on the web application.
+#This part is done by Atsu Mizoguchi(32615183)
 
 # connect mysql
 connection = mysql.connector.connect(
