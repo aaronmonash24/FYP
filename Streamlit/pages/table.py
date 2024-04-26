@@ -11,7 +11,7 @@ Table Page
 In this page, we will allow users to explore the table by searching up the product by its ID,and filter product by category and store.
 Moreover, we can upload file(limited to csv) on the web application.
 
-Author:Atsu Mizoguchi
+Author: Atsu Mizoguchi
 """
 
 # connect mysql
