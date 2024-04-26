@@ -6,18 +6,35 @@ import pandas as pd
 import plotly.express as px
 from datetime import timedelta
 
+"""
+Dashboard Overview:
+
+This dashboard provides visual representations of data spanning the last 30 days. 
+The dashboard displays a key metric at the top of the page, providing a quick snapshot of the most critical data point for the last 30 days, which is total sales and total revenue.
+It also includes both bar graphs and line graphs to illustrate various metrics and trends over this period. 
+This is designed to give users an immediate understanding of a vital aspect of the dataset.
+
+Components:
+1. Metrics: These metrics serve as a quick indicator of total sales and total revenue.
+2. Bar Graphs: These are used to show discrete changes and comparisons across different categories or groups within the data collected over the past 30 days. 
+3. Line Graphs: These graphs are employed to depict continuous data over time, allowing for the observation of trends and the impact of day-to-day changes. 
+
+Author: Chloe Ang, Edrick Hendrick
+"""
+
 # Page configuration
 st.set_page_config(page_title="Plotting Demo", page_icon="📈", layout = "wide")
 st.markdown("# Dashboard")
 st.sidebar.header("Dashboard")
 
-# replace the datas inside with the data in local computer
+# Work below is done by Chloe Ang
+# Replace the datas inside with the data in local computer
 data = pd.read_csv("3month.csv")
 data['date'] = pd.to_datetime(data['date'], errors='coerce')
 # Find the latest date in the data
 latest_date = data['date'].max()
 
-# Calculate the date 30 days before the latest date
+# Calculate the date 28 days before the latest date
 four_weeks_before_latest = latest_date - timedelta(days=28)
 # Calculate previous period for the delta (changes)
 start_of_previous_period = latest_date - timedelta(days=56)
@@ -32,11 +49,11 @@ previous_data = data[(data['date'] > start_of_previous_period) & (data['date'] <
 filtered_data ['revenue'] = filtered_data ['sell_price'] * filtered_data ['sold']
 previous_data ['revenue'] = previous_data ['sell_price'] * previous_data ['sold']
 
-# Calculate total revenue and sales for last 30 days
+# Calculate total revenue and sales for last 28 days
 total_revenue = filtered_data['revenue'].sum()  
 total_sales = filtered_data['sold'].sum() 
 
-# Calculate total revenue and sales for last 60 days
+# Calculate total revenue and sales for last 56 days
 previous_total_revenue = previous_data['revenue'].sum()
 previous_total_sales = previous_data['sold'].sum()
 
@@ -48,31 +65,28 @@ delta_revenue_percentage = ((delta_revenue) / previous_total_revenue * 100) if p
 delta_sales = total_sales - previous_total_sales
 delta_sales_percentage = ((delta_sales) / previous_total_sales * 100) if previous_total_sales != 0 else 0
 
-
+# Work below is done by Edrick Hendri
 # Display metrics
-# getting the barchart
+# Getting the barchart
 bar_df = filtered_data[["cat_id", "sold"]].groupby("cat_id", as_index= False).sum()
 
-# df for bar graph
+# Create the df for bar graph
 line_df = filtered_data[["cat_id", "date", "revenue"]].groupby(["cat_id", "date"], as_index= False).sum()
 
-# sales trend analysis
-
+# Create sales trend analysis
 placeholder = st.empty()
 with placeholder.container():
     col1, col2 =  st.columns([1,1])
-    col1.metric(label="Total Revenue for 30 Days Ending " , value=f"{total_revenue:,.2f}",delta=f"{delta_revenue_percentage:.2f}%")
-    col2.metric(label="Total Sales for 30 Days Ending " , value=f"{total_sales:,}",delta=f"{delta_sales_percentage:.2f}%")
+    col1.metric(label="Total Revenue for the last 28 Days " , value=f"{total_revenue:,.2f}",delta=f"{delta_revenue_percentage:.2f}%")
+    col2.metric(label="Total Sales for the last 28 Days " , value=f"{total_sales:,}",delta=f"{delta_sales_percentage:.2f}%")
 
     fig_col1, fig_col2 = st.columns([1,1])
     with fig_col1:
-        st.caption("Revenue Made over the last 28 days:")
         fig2=px.line(line_df,x='date',y='revenue', color='cat_id', labels={'date': 'Date', 'revenue':'Total Revenue'})
         st.plotly_chart(fig2, use_container_width=True)
         
     with fig_col2:
-        st.caption("quantity sold over the last 28 days:")
-        fig=px.bar(bar_df,x='sold',y='cat_id', orientation='h', text_auto=True, labels={'sold': 'Quantity Sold', 'cat_id':'Category'})
+        fig=px.bar(bar_df,x='sold',y='cat_id', orientation='h', text_auto=True, labels={'sold': 'Quantity Sold', 'cat_id':'Category'},color = 'cat_id')
         # Adjusting figure layout properties to make it aligned
         fig.update_layout(
             autosize=True,
