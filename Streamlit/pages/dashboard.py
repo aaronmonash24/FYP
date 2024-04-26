@@ -17,7 +17,7 @@ data['date'] = pd.to_datetime(data['date'], errors='coerce')
 # Find the latest date in the data
 latest_date = data['date'].max()
 
-# Calculate the date 30 days before the latest date
+# Calculate the date 28 days before the latest date
 four_weeks_before_latest = latest_date - timedelta(days=28)
 # Calculate previous period for the delta (changes)
 start_of_previous_period = latest_date - timedelta(days=56)
@@ -61,8 +61,8 @@ line_df = filtered_data[["cat_id", "date", "revenue"]].groupby(["cat_id", "date"
 placeholder = st.empty()
 with placeholder.container():
     col1, col2 =  st.columns([1,1])
-    col1.metric(label="Total Revenue for 28 Days Ending " , value=f"{total_revenue:,.2f}",delta=f"{delta_revenue_percentage:.2f}%")
-    col2.metric(label="Total Sales for 28 Days Ending " , value=f"{total_sales:,}",delta=f"{delta_sales_percentage:.2f}%")
+    col1.metric(label="Total Revenue for the last 28 Days " , value=f"{total_revenue:,.2f}",delta=f"{delta_revenue_percentage:.2f}%")
+    col2.metric(label="Total Sales for the last 28 Days " , value=f"{total_sales:,}",delta=f"{delta_sales_percentage:.2f}%")
 
     fig_col1, fig_col2 = st.columns([1,1])
     with fig_col1:

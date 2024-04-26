@@ -7,11 +7,11 @@ st.set_page_config(page_title="Home", page_icon="")
 st.markdown("# Home")
 st.sidebar.header("Home")
 st.write(
-    """This FIT3164 Project was created by the following member: Yu Wen Liew(Aaron), 
-    Ke er Ang(Chloe), Atsu mizugochi, and Edrick Hendri"""
+    """This FIT3164 project was created by the following member: Yu Wen Liew(Aaron), 
+    Ke Er Ang(Chloe), Atsu Mizugochi, and Edrick Hendri"""
 )
 
-st.write( """This Project aims to find Pricing elasticity on retail products so that retail company
+st.write( """This project aims to find pricing elasticity on retail products so that retail company
     could find the best strategy to optimize their sales 
     """)
 
