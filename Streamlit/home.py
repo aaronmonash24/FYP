@@ -2,6 +2,16 @@ import streamlit as st
 import time
 import numpy as np
 
+"""
+Home page.
+
+this home page will show the introduction of the group and the whole webapp.
+it will introduce each of the group member and each of the section this project will 
+discusses.
+
+Author: Edrick Hendri
+"""
+
 st.set_page_config(page_title="Home", page_icon="")
 
 st.markdown("# Home")
