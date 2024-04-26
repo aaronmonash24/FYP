@@ -27,7 +27,8 @@ st.set_page_config(page_title="Plotting Demo", page_icon="📈", layout = "wide"
 st.markdown("# Dashboard")
 st.sidebar.header("Dashboard")
 
-# replace the datas inside with the data in local computer
+# Work below is done by Chloe Ang
+# Replace the datas inside with the data in local computer
 data = pd.read_csv("3month.csv")
 data['date'] = pd.to_datetime(data['date'], errors='coerce')
 # Find the latest date in the data
@@ -64,16 +65,15 @@ delta_revenue_percentage = ((delta_revenue) / previous_total_revenue * 100) if p
 delta_sales = total_sales - previous_total_sales
 delta_sales_percentage = ((delta_sales) / previous_total_sales * 100) if previous_total_sales != 0 else 0
 
-
+# Work below is done by Edrick Hendri
 # Display metrics
-# getting the barchart
+# Getting the barchart
 bar_df = filtered_data[["cat_id", "sold"]].groupby("cat_id", as_index= False).sum()
 
-# df for bar graph
+# Create the df for bar graph
 line_df = filtered_data[["cat_id", "date", "revenue"]].groupby(["cat_id", "date"], as_index= False).sum()
 
-# sales trend analysis
-
+# Create sales trend analysis
 placeholder = st.empty()
 with placeholder.container():
     col1, col2 =  st.columns([1,1])
