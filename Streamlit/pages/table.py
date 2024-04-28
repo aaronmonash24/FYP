@@ -13,12 +13,12 @@ import numpy as np
 connection = mysql.connector.connect(
     host = 'localhost',
     user = 'root',
-    password = 'atsu0218',
-    database = 'fyp'
-)
+    password = 'root',
+    database = 'hobbies'
+    )
 
 cursor = connection.cursor()
-cursor.execute("select * from 3month")
+cursor.execute("select * from food2")
 data = cursor.fetchall()
 
 # create dataframe

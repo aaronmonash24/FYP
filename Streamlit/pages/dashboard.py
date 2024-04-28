@@ -5,7 +5,7 @@ import pandas as pd
 # import matplotlib as 
 import plotly.express as px
 from datetime import timedelta
-
+st.set_page_config(page_title="Plotting Demo", page_icon="📈", layout = "wide")
 """
 Dashboard Overview:
 
@@ -23,7 +23,7 @@ Author: Chloe Ang, Edrick Hendri
 """
 
 # Page configuration
-st.set_page_config(page_title="Plotting Demo", page_icon="📈", layout = "wide")
+
 st.markdown("# Dashboard")
 st.sidebar.header("Dashboard")
 
