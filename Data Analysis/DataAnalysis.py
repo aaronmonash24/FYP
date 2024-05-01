@@ -1,0 +1,23 @@
+import streamlit as st
+
+st.title("Data Analysis")
+import streamlit.components.v1 as components
+
+# Path to the HTML file
+html_file_path = "/Users/chloeang/Desktop/FYP/FYP/Data Analysis/DataExploration.html"
+html_file_path2 = "/Users/chloeang/Desktop/FYP/FYP/Data Analysis/PED.html"
+
+# Load the HTML content
+with open(html_file_path, 'r') as f:
+    html_content = f.read()
+
+# Embed the HTML content in an iframe
+st.components.v1.html(html_content,width=800, height=600, scrolling=True)
+
+# Load the content of the second HTML file
+with open(html_file_path2, 'r') as f:
+    html_content2 = f.read()
+
+# Embed the second HTML content in an iframe
+
+components.html(html_content2, width=800, height=600, scrolling=True)
