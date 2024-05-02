@@ -24,5 +24,5 @@ with open(html_file_path2, 'r') as f:
     html_content2 = f.read()
 
 # Embed the second HTML content in an iframe
-
+st.title("PED Analysis")
 components.html(html_content2, width=800, height=600, scrolling=True)
