@@ -2,15 +2,15 @@ import streamlit as st
 import time
 import numpy as np
 st.set_page_config(page_title="Home", page_icon="")
-"""
-Home page.
+# """
+# Home page.
 
-this home page will show the introduction of the group and the whole webapp.
-it will introduce each of the group member and each of the section this project will 
-discusses.
+# this home page will show the introduction of the group and the whole webapp.
+# it will introduce each of the group member and each of the section this project will 
+# discusses.
 
-Author: Edrick Hendri
-"""
+# Author: Edrick Hendri
+# """
 
 
 
@@ -18,11 +18,11 @@ st.markdown("# Home")
 st.sidebar.header("Home")
 st.write(
     """This FIT3164 project was created by the following member: Yu Wen Liew(Aaron), 
-    Ke Er Ang(Chloe), Atsu Mizugochi, and Edrick Hendri"""
+    Ke Er Ang(Chloe), Atsu Mizugochi, and Edrick Hendri. """
 )
 
 st.write( """This project aims to find pricing elasticity on retail products so that retail company
-    could find the best strategy to optimize their sales 
+    could find the best strategy to optimize their sales.
     """)
 
 progress_bar = st.sidebar.progress(0)
