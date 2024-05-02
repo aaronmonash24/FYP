@@ -15,11 +15,11 @@ import mlforecast
 from mlforecast import MLForecast
 from mlforecast.lag_transforms import ExpandingMean, RollingMean, SeasonalRollingMean
 
-"""
-Author: Yu Wen Liew 32882807
-This page is responsible to show the forecasted sales of a single product based on the PED obtained and the LGBM model used to forecast.
-The dropdown list shows the choice of product and discount rate is used to set the amount of discount given
-"""
+
+#Author: Yu Wen Liew 32882807
+#This page is responsible to show the forecasted sales of a single product based on the PED obtained and the LGBM model used to forecast.
+#The dropdown list shows the choice of product and discount rate is used to set the amount of discount given
+
 def insert_chunks(df):
     df_iter = pd.read_csv(df, iterator=True, chunksize=10000)
     
@@ -32,7 +32,7 @@ def insert_chunks(df):
         chunk = chunk
 
         
-        chunk.to_sql(name='food2', con=engine, if_exists='append',schema='hobbies',index=False)
+        chunk.to_sql(name='hobby', con=engine, if_exists='append',schema='hobbies',index=False)
 
         t_end = time()
 
@@ -51,28 +51,36 @@ connection = mysql.connector.connect(
     )
 
 @st.cache_data
-def fetch_data():
+def fetch_data(id):
     
     
     cursor = connection.cursor()
-    cursor.execute("Select * from hobby ")
+    cursor.execute("Select * from hobby where id='"+id+"'")
     data = cursor.fetchall()
     print(cursor.column_names)
     df = pd.DataFrame(data,columns = cursor.column_names)
     return df
 
+def get_id():
+    cursor = connection.cursor()
+    cursor.execute("Select distinct id from hobby")
+    data = cursor.fetchall()
+    print(cursor.column_names)
+    return pd.DataFrame(data,columns = cursor.column_names)
 
 
-if 'data' not in st.session_state:
-    st.session_state.data=fetch_data()
 t_end = time()
 print('Fetching data total time took %.3f second' % (t_end - t_start))
 
-print(sum(st.session_state.data.memory_usage()))
+
+ids=get_id()
+
+option = st.selectbox('Select Product',ids['id'])
 
 
-st.session_state.data['sell_price'] = st.session_state.data['sell_price'].astype('float')
-st.session_state.data['sold'] = st.session_state.data['sold'].astype('int')
+data=fetch_data(option)
+data['sell_price'] = data['sell_price'].astype('float')
+data['sold'] = data['sold'].astype('int')
 
 
 t_start = time()
@@ -89,7 +97,8 @@ t_end = time()
 print('Group data total time took %.3f second' % (t_end - t_start))
 
 t_start = time()
-test = group_df(st.session_state.data).aggregate({'sold':np.sum,'sell_price':np.mean})
+test = group_df(data).aggregate({'sold':np.sum,'sell_price':np.mean})
+
 first_values = sorted(pd.DataFrame([t[0] for t in test.index])[0].unique())
 t_end = time()
 print('Aggregate data total time took %.3f second' % (t_end - t_start))
@@ -106,7 +115,8 @@ def ped1(group):
     ped = price_coef * (mean_sellprice / mean_quantity)
 
     return ped
-hobby_ped=st.session_state.data.groupby(['cat_id']).apply(ped1)[0]
+
+hobby_ped=data.groupby(['cat_id']).apply(ped1)[0]
 
 # a version of calculate_ped, using this as its slightly diff and I dont wanna change things too much
 @st.cache_data
@@ -131,10 +141,14 @@ def calc_ped(grouped,values,disc,overall_ped):
     return final
 
 
+final=calc_ped(test,first_values,discount,hobby_ped)
 
-st.session_state.final=calc_ped(test,first_values,discount,hobby_ped)
-
-
+model_params = {
+    'verbose': -1,
+    'force_col_wise': True,
+    'num_leaves': 256,
+    'n_estimators': 50,
+}
 
 
 t_end = time()
@@ -145,28 +159,29 @@ t_start = time()
 
 q=[]
 for i in range(len(first_values)):
-    q.append(test.loc[st.session_state.final['Product ID'][i]]['sold'].to_list())
-st.session_state.final[ 'Sales Chart'] = q
+    q.append(test.loc[final['Product ID'][i]]['sold'].to_list())
+final[ 'Sales Chart'] = q
 
-option = st.selectbox('Select Product',st.session_state.final['Product ID'])
 
-df_editor=st.dataframe(st.session_state.final[st.session_state.final["Product ID"]==option],column_config={"Sales Chart" :st.column_config.LineChartColumn(
+
+df_editor=st.dataframe(final[final["Product ID"]==option],column_config={"Sales Chart" :st.column_config.LineChartColumn(
             "Monthly Sales Chart", y_min=0, y_max=50
         )})
 
 
 t_end = time()
-avg_pred=st.session_state.final[st.session_state.final["Product ID"]==option]['Predicted Quantity'].to_list()[0]/28
-st.session_state.data['date']=pd.to_datetime(st.session_state.data['date'])
-last_date=st.session_state.data['date'].max()
-print(last_date)
+avg_pred=final[final["Product ID"]==option]['Predicted Quantity'].to_list()[0]/28
+data['date']=pd.to_datetime(data['date'])
+last_date=data['date'].max()
+
 new_dates=pd.date_range(start=last_date + pd.Timedelta(days=1), periods=28, freq='D')
-print(new_dates)
+
+
 new={'date':new_dates,
      'sold':avg_pred}
 df_new=pd.DataFrame(new)
 
-fig = px.line(st.session_state.data[st.session_state.data["id"]==option][-90:], x="date", y="sold", title='Forecasted Sales')
+fig = px.line(data[data["id"]==option][-90:], x="date", y="sold", title='Forecasted Sales')
 fig.add_trace(go.Scatter(x=df_new['date'], y=df_new['sold'],
                     mode='markers', name='Forecasted'))
 
