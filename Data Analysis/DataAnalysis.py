@@ -1,3 +1,8 @@
+"""  This Python script utilizes Streamlit to perform data analysis. 
+The script loads HTML files containing data exploration and analysis results and Price Elasticity of Demand (PED) analysis. 
+It embeds the HTML content in iframes to display it within the Streamlit application.
+Author: Chloe Ang 
+"""
 import streamlit as st
 
 st.title("Data Analysis")
