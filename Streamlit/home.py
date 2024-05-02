@@ -5,8 +5,8 @@ st.set_page_config(page_title="Home", page_icon="")
 # """
 # Home page.
 
-# this home page will show the introduction of the group and the whole webapp.
-# it will introduce each of the group member and each of the section this project will 
+# This home page will show the introduction of the group and the whole webapp.
+# It will introduce each of the group member and each of the section this project will 
 # discusses.
 
 # Author: Edrick Hendri
