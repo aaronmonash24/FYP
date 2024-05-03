@@ -10,10 +10,6 @@ import plotly.express as px
 from pathlib import Path
 import plotly.graph_objects as go
 
-import lightgbm as lgb
-import mlforecast
-from mlforecast import MLForecast
-from mlforecast.lag_transforms import ExpandingMean, RollingMean, SeasonalRollingMean
 
 
 #Author: Yu Wen Liew 32882807
@@ -21,7 +17,7 @@ from mlforecast.lag_transforms import ExpandingMean, RollingMean, SeasonalRollin
 #The dropdown list shows the choice of product and discount rate is used to set the amount of discount given
 
 def insert_chunks(df):
-    df_iter = pd.read_csv(df, iterator=True, chunksize=10000)
+    df_iter = pd.read_csv(df, iterator=True, chunksize=100000)
     
     chunk=next(df_iter)
     engine = create_engine('mysql://root:root@localhost:3306/hobbies')
@@ -32,13 +28,13 @@ def insert_chunks(df):
         chunk = chunk
 
         
-        chunk.to_sql(name='hobby', con=engine, if_exists='append',schema='hobbies',index=False)
+        chunk.to_sql(name='3month', con=engine, if_exists='append',schema='hobbies',index=False)
 
         t_end = time()
 
         print('inserted another chunk, took %.3f second' % (t_end - t_start))
 
-#insert_chunks("hobby.csv")
+#insert_chunks("3month.csv")
 discount = st.slider('How much discount would you like to give', 0, 100, 10) 
 
 

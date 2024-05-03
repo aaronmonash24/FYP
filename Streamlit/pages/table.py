@@ -13,17 +13,17 @@ Moreover, we can upload file(limited to csv) on the web application.
 Author: Atsu Mizoguchi """
 )
 
-#youy
-# connect mysql
-connection = mysql.connector.connect(
-    host = 'localhost',
-    user = 'root',
-    password = 'atsu0218',
-    database = 'fyp'
-    )
 
-cursor = connection.cursor()
-cursor.execute("select * from 3month")
+# connect mysql
+#connection = mysql.connector.connect(
+    #host = 'localhost',
+    #user = 'root',
+    #password = 'root',
+    #database = 'hobbies'
+    #)
+#
+#cursor = connection.cursor()
+st.session_state.cursor.execute("select * from 3month")
 data = cursor.fetchall()
 
 # create dataframe

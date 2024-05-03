@@ -1,5 +1,5 @@
 import streamlit as st
-import time
+from time import time
 import numpy as np
 st.set_page_config(page_title="Home", page_icon="")
 # """
@@ -24,6 +24,17 @@ st.write(
 st.write( """This project aims to find pricing elasticity on retail products so that retail company
     could find the best strategy to optimize their sales.
     """)
+t_start = time()
+if 'connection' not in st.session_state:
+    st.session_state.connection=mysql.connector.connect(
+    host = 'localhost',
+    user = 'root',
+    password = 'root',
+    database = 'hobbies'
+    )
+if 'cursor' not in st.session_state:
+    st.session_state.cursor=st.session_state.connection.cursor()
+
 
 progress_bar = st.sidebar.progress(0)
 status_text = st.sidebar.empty()
