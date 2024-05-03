@@ -6,21 +6,21 @@ import pandas as pd
 import plotly.express as px
 from datetime import timedelta
 st.set_page_config(page_title="Plotting Demo", page_icon="📈", layout = "wide")
-"""
-Dashboard Overview:
+# """
+# Dashboard Overview:
 
-This dashboard provides visual representations of data spanning the last 30 days. 
-The dashboard displays a key metric at the top of the page, providing a quick snapshot of the most critical data point for the last 30 days, which is total sales and total revenue.
-It also includes both bar graphs and line graphs to illustrate various metrics and trends over this period. 
-This is designed to give users an immediate understanding of a vital aspect of the dataset.
+# This dashboard provides visual representations of data spanning the last 30 days. 
+# The dashboard displays a key metric at the top of the page, providing a quick snapshot of the most critical data point for the last 30 days, which is total sales and total revenue.
+# It also includes both bar graphs and line graphs to illustrate various metrics and trends over this period. 
+# This is designed to give users an immediate understanding of a vital aspect of the dataset.
 
-Components:
-1. Metrics: These metrics serve as a quick indicator of total sales and total revenue.
-2. Bar Graphs: These are used to show discrete changes and comparisons across different categories or groups within the data collected over the past 30 days. 
-3. Line Graphs: These graphs are employed to depict continuous data over time, allowing for the observation of trends and the impact of day-to-day changes. 
+# Components:
+# 1. Metrics: These metrics serve as a quick indicator of total sales and total revenue.
+# 2. Bar Graphs: These are used to show discrete changes and comparisons across different categories or groups within the data collected over the past 30 days. 
+# 3. Line Graphs: These graphs are employed to depict continuous data over time, allowing for the observation of trends and the impact of day-to-day changes. 
 
-Author: Chloe Ang, Edrick Hendri
-"""
+# Author: Chloe Ang, Edrick Hendri
+# """
 
 # Page configuration
 
