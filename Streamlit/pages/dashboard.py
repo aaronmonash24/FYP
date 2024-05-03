@@ -23,7 +23,6 @@ st.set_page_config(page_title="Plotting Demo", page_icon="📈", layout = "wide"
 # """
 
 # Page configuration
-
 st.markdown("# Dashboard")
 st.sidebar.header("Dashboard")
 
