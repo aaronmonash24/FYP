@@ -4,25 +4,29 @@ It embeds the HTML content in iframes to display it within the Streamlit applica
 Author: Chloe Ang 
 """
 import streamlit as st
+import urllib.request
+import ssl
 
 st.title("Data Analysis")
 import streamlit.components.v1 as components
 
 # Path to the HTML file
-html_file_path = "https://github.com/Chloeangggg/FypDataAnalysis/blob/main/DataExploration.html"
-html_file_path2 = "https://github.com/Chloeangggg/FypDataAnalysis/blob/main/PED.html"
+url = "https://raw.githubusercontent.com/Chloeangggg/FypDataAnalysis/main/DataExploration.html"
+url2 = "https://raw.githubusercontent.com/Chloeangggg/FypDataAnalysis/main/PED.html"
 
 # Load the HTML content
-with open(html_file_path, 'r') as f:
-    html_content = f.read()
+# with open(html_file_path, 'r') as f:
+#     html_content = f.read()
+context = ssl._create_unverified_context()
+with urllib.request.urlopen(url, context=context) as response:
+    html_content = response.read().decode()
 
 # Embed the HTML content in an iframe
 st.components.v1.html(html_content,width=800, height=600, scrolling=True)
 
-# Load the content of the second HTML file
-with open(html_file_path2, 'r') as f:
-    html_content2 = f.read()
+st.title("Price Elasticity of Demand ")
+with urllib.request.urlopen(url2, context=context) as response:
+    html_content = response.read().decode()
 
-# Embed the second HTML content in an iframe
-st.title("PED Analysis")
-components.html(html_content2, width=800, height=600, scrolling=True)
+# Embed the HTML content in an iframe
+st.components.v1.html(html_content,width=800, height=600, scrolling=True)
