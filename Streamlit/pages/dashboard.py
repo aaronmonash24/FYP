@@ -8,7 +8,7 @@ from datetime import timedelta
 st.set_page_config(page_title="Plotting Demo", page_icon="📈", layout = "wide")
 # """
 # Dashboard Overview:
-
+#Example
 # This dashboard provides visual representations of data spanning the last 30 days. 
 # The dashboard displays a key metric at the top of the page, providing a quick snapshot of the most critical data point for the last 30 days, which is total sales and total revenue.
 # It also includes both bar graphs and line graphs to illustrate various metrics and trends over this period. 
