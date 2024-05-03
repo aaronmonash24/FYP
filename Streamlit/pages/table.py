@@ -4,30 +4,29 @@ import pandas as pd
 import statsmodels.api as sm 
 import numpy as np
 
-"""
-Table Page
 
-
-In this page, we will allow users to explore the table by searching up the product by its ID,and filter product by category and store.
+st.markdown("# Table Page")
+st.write(
+    """In this page, we will allow users to explore the table by searching up the product by its ID,and filter product by category and store.
 Moreover, we can upload file(limited to csv) on the web application.
 
-Author: Atsu Mizoguchi
-"""
+Author: Atsu Mizoguchi """
+)
+
 
 # connect mysql
 connection = mysql.connector.connect(
     host = 'localhost',
     user = 'root',
-    password = 'root',
-    database = 'hobbies'
+    password = 'atsu0218',
+    database = 'fyp'
     )
 
 cursor = connection.cursor()
-cursor.execute("select * from food2")
+cursor.execute("select * from 3month")
 data = cursor.fetchall()
 
 # create dataframe
-st.title('Table Page')
 df = pd.DataFrame(data,columns = cursor.column_names)
 df['sell_price'] = df['sell_price'].astype('float')
 df['sold'] = df['sold'].astype('int')
