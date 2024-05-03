@@ -9,8 +9,8 @@ st.title("Data Analysis")
 import streamlit.components.v1 as components
 
 # Path to the HTML file
-html_file_path = "https://github.com/aaronmonash24/FYP/blob/main/Data%20Analysis/DataExploration.html"
-html_file_path2 = "https://github.com/aaronmonash24/FYP/blob/main/Data%20Analysis/PED.html"
+html_file_path = "https://github.com/Chloeangggg/FypDataAnalysis/blob/main/DataExploration.html"
+html_file_path2 = "https://github.com/Chloeangggg/FypDataAnalysis/blob/main/PED.html"
 
 # Load the HTML content
 with open(html_file_path, 'r') as f:
