@@ -16,10 +16,11 @@ import plotly.graph_objects as go
 #This page is responsible to show the forecasted sales of a single product based on the PED obtained and the LGBM model used to forecast.
 #The dropdown list shows the choice of product and discount rate is used to set the amount of discount given
 
+
 def insert_chunks(df):
-    df_iter = pd.read_csv(df, iterator=True, chunksize=100000)
+    df_iter = pd.read_csv(df, iterator=True, chunksize=10000)
     
-    chunk=next(df_iter)
+    #chunk=next(df_iter)
     engine = create_engine('mysql://root:root@localhost:3306/hobbies')
 
     for chunk in df_iter :
@@ -28,14 +29,14 @@ def insert_chunks(df):
         chunk = chunk
 
         
-        chunk.to_sql(name='3month', con=engine, if_exists='append',schema='hobbies',index=False)
+        chunk.to_sql(name='full', con=engine, if_exists='append',schema='hobbies',index=False)
 
         t_end = time()
 
         print('inserted another chunk, took %.3f second' % (t_end - t_start))
 
-#insert_chunks("3month.csv")
-discount = st.slider('How much discount would you like to give', 0, 100, 10) 
+#insert_chunks("full.csv")
+discount = st.slider('How much discount would you like to give', -100, 100, 10) 
 
 
 t_start = time()
@@ -51,7 +52,7 @@ def fetch_data(id):
     
     
     cursor = connection.cursor()
-    cursor.execute("Select * from hobby where id='"+id+"'")
+    cursor.execute("Select * from full where `Product ID`='"+id+"'")
     data = cursor.fetchall()
     print(cursor.column_names)
     df = pd.DataFrame(data,columns = cursor.column_names)
@@ -59,7 +60,7 @@ def fetch_data(id):
 
 def get_id():
     cursor = connection.cursor()
-    cursor.execute("Select distinct id from hobby")
+    cursor.execute("Select distinct `Product ID` from full")
     data = cursor.fetchall()
     print(cursor.column_names)
     return pd.DataFrame(data,columns = cursor.column_names)
@@ -71,12 +72,12 @@ print('Fetching data total time took %.3f second' % (t_end - t_start))
 
 ids=get_id()
 
-option = st.selectbox('Select Product',ids['id'])
+option = st.selectbox('Select Product',ids['Product ID'])
 
 
-data=fetch_data(option)
-data['sell_price'] = data['sell_price'].astype('float')
-data['sold'] = data['sold'].astype('int')
+final=fetch_data(option)
+final['Original Price'] = final['Original Price'].astype('float')
+final['Original Quantity'] = final['Original Quantity'].astype('int')
 
 
 t_start = time()
@@ -93,9 +94,9 @@ t_end = time()
 print('Group data total time took %.3f second' % (t_end - t_start))
 
 t_start = time()
-test = group_df(data).aggregate({'sold':np.sum,'sell_price':np.mean})
+#test = group_df(data).aggregate({'sold':np.sum,'sell_price':np.mean})
 
-first_values = sorted(pd.DataFrame([t[0] for t in test.index])[0].unique())
+#first_values = sorted(pd.DataFrame([t[0] for t in test.index])[0].unique())
 t_end = time()
 print('Aggregate data total time took %.3f second' % (t_end - t_start))
 
@@ -112,7 +113,7 @@ def ped1(group):
 
     return ped
 
-hobby_ped=data.groupby(['cat_id']).apply(ped1)[0]
+#hobby_ped=data.groupby(['cat_id']).apply(ped1)[0]
 
 # a version of calculate_ped, using this as its slightly diff and I dont wanna change things too much
 @st.cache_data
@@ -137,49 +138,50 @@ def calc_ped(grouped,values,disc,overall_ped):
     return final
 
 
-final=calc_ped(test,first_values,discount,hobby_ped)
+#final=calc_ped(test,first_values,discount,hobby_ped)
 
-model_params = {
-    'verbose': -1,
-    'force_col_wise': True,
-    'num_leaves': 256,
-    'n_estimators': 50,
-}
+final['Discounted Price']=final['Original Price']*(1-discount/100)
+final['Predicted Quantity']=final['Original Quantity']*(1+final['Predicted PED']*(final['Discounted Price']-final['Original Price'])/final['Original Price'])
 
 
 t_end = time()
 print('Predict data total time took %.3f second' % (t_end - t_start))
 
-
+st.dataframe(final)
 t_start = time()
 
 q=[]
-for i in range(len(first_values)):
-    q.append(test.loc[final['Product ID'][i]]['sold'].to_list())
-final[ 'Sales Chart'] = q
+#for i in range(len(first_values)):
+#    q.append(test.loc[final['Product ID'][i]]['sold'].to_list())
+#final[ 'Sales Chart'] = q
 
 
 
-df_editor=st.dataframe(final[final["Product ID"]==option],column_config={"Sales Chart" :st.column_config.LineChartColumn(
-            "Monthly Sales Chart", y_min=0, y_max=50
-        )})
+#df_editor=st.dataframe(final[final["Product ID"]==option],column_config={"Sales Chart" :st.column_config.LineChartColumn(
+ #           "Monthly Sales Chart", y_min=0, y_max=50
+ #       )})
 
 
 t_end = time()
-avg_pred=final[final["Product ID"]==option]['Predicted Quantity'].to_list()[0]/28
-data['date']=pd.to_datetime(data['date'])
-last_date=data['date'].max()
+cursor = connection.cursor()
+cursor.execute("Select * from 3month where id='"+option+"'")
+data = cursor.fetchall()
+print(cursor.column_names)
+df = pd.DataFrame(data,columns = cursor.column_names)
+avg_pred=final['Predicted Quantity'][0]/28
+df['date']=pd.to_datetime(df['date'])
+last_date=df['date'].max()
 
 new_dates=pd.date_range(start=last_date + pd.Timedelta(days=1), periods=28, freq='D')
-
+print(avg_pred)
 
 new={'date':new_dates,
      'sold':avg_pred}
 df_new=pd.DataFrame(new)
 
-fig = px.line(data[data["id"]==option][-90:], x="date", y="sold", title='Forecasted Sales')
+fig = px.line(df[df["id"]==option][-90:], x="date", y="sold", title='Forecasted Sales')
 fig.add_trace(go.Scatter(x=df_new['date'], y=df_new['sold'],
                     mode='markers', name='Forecasted'))
 
 st.plotly_chart(fig, use_container_width=True)
-print('The rest total time took %.3f second' % (t_end - t_start))
+#print('The rest total time took %.3f second' % (t_end - t_start))

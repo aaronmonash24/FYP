@@ -5,13 +5,13 @@ import statsmodels.api as sm
 import numpy as np
 
 
-st.markdown("# Table Page")
-st.write(
-    """In this page, we will allow users to explore the table by searching up the product by its ID,and filter product by category and store.
-Moreover, we can upload file(limited to csv) on the web application.
+st.markdown("# Product Table")
 
-Author: Atsu Mizoguchi """
-)
+    #In this page, we will allow users to explore the table by searching up the product by its ID,and filter product by category and store.
+#Moreover, we can upload file(limited to csv) on the web application.
+#
+#Author: Atsu Mizoguchi 
+
 
 
 # connect mysql
@@ -24,10 +24,10 @@ Author: Atsu Mizoguchi """
 #
 #cursor = connection.cursor()
 st.session_state.cursor.execute("select * from 3month")
-data = cursor.fetchall()
+data = st.session_state.cursor.fetchall()
 
 # create dataframe
-df = pd.DataFrame(data,columns = cursor.column_names)
+df = pd.DataFrame(data,columns = st.session_state.cursor.column_names)
 df['sell_price'] = df['sell_price'].astype('float')
 df['sold'] = df['sold'].astype('int')
 
