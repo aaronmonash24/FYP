@@ -11,7 +11,7 @@ from pathlib import Path
 import plotly.graph_objects as go
 
 
-
+st.set_page_config(layout="wide")
 #Author: Yu Wen Liew 32882807
 #This page is responsible to show the forecasted sales of a single product based on the PED obtained and the LGBM model used to forecast.
 #The dropdown list shows the choice of product and discount rate is used to set the amount of discount given

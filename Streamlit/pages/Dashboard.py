@@ -28,7 +28,7 @@ st.markdown("# Dashboard")
 # Work below is done by Chloe Ang
 # Replace the datas inside with the data in local computer
 #data = pd.read_csv("3month.csv")
-st.session_state.cursor.execute("select * from 3month")
+st.session_state.cursor.execute("select * from 3month where date >= '2016-02-15'")
 df= st.session_state.cursor.fetchall()
 data=pd.DataFrame(df,columns = st.session_state.cursor.column_names)
 data['date'] = pd.to_datetime(data['date'], errors='coerce')

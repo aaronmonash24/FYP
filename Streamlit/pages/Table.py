@@ -4,7 +4,7 @@ import pandas as pd
 import statsmodels.api as sm 
 import numpy as np
 
-
+st.set_page_config(layout="wide")
 st.markdown("# Product Table")
 
     #In this page, we will allow users to explore the table by searching up the product by its ID,and filter product by category and store.
@@ -23,13 +23,13 @@ st.markdown("# Product Table")
     #)
 #
 #cursor = connection.cursor()
-st.session_state.cursor.execute("select * from 3month")
+st.session_state.cursor.execute("select * from full")
 data = st.session_state.cursor.fetchall()
 
 # create dataframe
 df = pd.DataFrame(data,columns = st.session_state.cursor.column_names)
-df['sell_price'] = df['sell_price'].astype('float')
-df['sold'] = df['sold'].astype('int')
+#df['sell_price'] = df['sell_price'].astype('float')
+#df['sold'] = df['sold'].astype('int')
 
 # calculate PED
 def calculate_ped(group):
@@ -42,19 +42,19 @@ def calculate_ped(group):
     group.loc[:, 'PED'] = price_coef # Assign the computed PED values to the 'PED' column
     return group
 
-df = df.groupby('id').apply(calculate_ped).reset_index(drop=True)
+#df = df.groupby('id').apply(calculate_ped).reset_index(drop=True)
 
 
 # search bar
 text_search = st.text_input("Search by ID", value="")
-m1 = df["id"].str.contains(text_search)
+m1 = df["Product ID"].str.contains(text_search)
 df_search = df[m1]
 if text_search:
     st.write(df_search)
 
 
 # filter category via 
-categories_list = ['FOOD', 'HOUSEHOLD', 'HOBBIES']  # Explicitly define the list of categories
+categories_list = ['FOODS', 'HOUSEHOLD', 'HOBBIES']  # Explicitly define the list of categories
 
 # Provide default values for multiselect
 default_values = categories_list  # Set default values to all available categories
@@ -63,7 +63,7 @@ default_values = categories_list  # Set default values to all available categori
 selection = st.multiselect('Select category', categories_list, default_values)
 
 # Filter DataFrame based on selection
-df_selection = df[df['cat_id'].isin(selection)]
+df_selection = df[df['Category'].isin(selection)]
 
 df_editor = st.dataframe(df_selection)
 
@@ -77,7 +77,7 @@ default_values = state_list  # Set default values to all available categories
 selection = st.multiselect('Select state', state_list, default_values)
 
 # Filter DataFrame based on selection
-df_selection = df[df['store_id'].isin(selection)]
+df_selection = df[df['State ID'].isin(selection)]
 df_editor = st.dataframe(df_selection)
 
 # Display DataFrame
