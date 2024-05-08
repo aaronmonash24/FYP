@@ -68,7 +68,7 @@ df_selection = df[df['Category'].isin(selection)]
 df_editor = st.dataframe(df_selection)
 
 # filter category via 
-state_list = ['CA_1', 'CA_2', 'CA_3', 'TX_1', 'TX_2', 'WI_1', 'WI_2']  # Explicitly define the list of categories
+state_list = ['CA_1', 'CA_2', 'CA_3','CA_4', 'TX_1', 'TX_2','TX_3', 'WI_1', 'WI_2','WI_3']  # Explicitly define the list of categories
 
 # Provide default values for multiselect
 default_values = state_list  # Set default values to all available categories
