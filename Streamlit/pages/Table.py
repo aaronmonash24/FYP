@@ -31,20 +31,6 @@ df = pd.DataFrame(data,columns = st.session_state.cursor.column_names)
 #df['sell_price'] = df['sell_price'].astype('float')
 #df['sold'] = df['sold'].astype('int')
 
-# calculate PED
-def calculate_ped(group):
-    X = sm.add_constant(group['sell_price'])
-    model = sm.OLS(group['sold'], X).fit()
-    price_coef = model.params['sell_price']
-    # mean_sellprice = group['Price'].mean()
-    # mean_quantity = group['Quantity'].mean()
-    # ped = price_coef * (mean_sellprice / mean_quantity)
-    group.loc[:, 'PED'] = price_coef # Assign the computed PED values to the 'PED' column
-    return group
-
-#df = df.groupby('id').apply(calculate_ped).reset_index(drop=True)
-
-
 # search bar
 text_search = st.text_input("Search by ID", value="")
 m1 = df["Product ID"].str.contains(text_search)
