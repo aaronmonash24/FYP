@@ -36,7 +36,7 @@ def insert_chunks(df):
         print('inserted another chunk, took %.3f second' % (t_end - t_start))
 
 #insert_chunks("full.csv")
-discount = st.slider('How much discount would you like to give', -100, 100, 10) 
+discount = st.slider('How much discount would you like to give', -100, 100, 0) 
 
 
 t_start = time()
