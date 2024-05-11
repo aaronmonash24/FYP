@@ -78,8 +78,8 @@ line_df = filtered_data[["cat_id", "date", "revenue"]].groupby(["cat_id", "date"
 placeholder = st.empty()
 with placeholder.container():
     col1, col2 =  st.columns([1,1])
-    col1.metric(label="Total Revenue for the last 28 Days " , value=f"{total_revenue:,.2f}",delta=f"{delta_revenue_percentage:.2f}%")
-    col2.metric(label="Total Sales for the last 28 Days " , value=f"{total_sales:,}",delta=f"{delta_sales_percentage:.2f}%")
+    col1.metric(label="Total Revenue for the last 28 Days (in USD)" , value=f"${total_revenue:,.2f}",delta=f"{delta_revenue_percentage:.2f}%")
+    col2.metric(label="Total Sales for the last 28 Days " , value=f"{total_sales:,} Units",delta=f"{delta_sales_percentage:.2f}%")
 
     fig_col1, fig_col2 = st.columns([1,1])
     with fig_col1:

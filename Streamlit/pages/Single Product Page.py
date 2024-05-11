@@ -29,13 +29,13 @@ def insert_chunks(df):
         chunk = chunk
 
         
-        chunk.to_sql(name='full', con=engine, if_exists='append',schema='hobbies',index=False)
+        chunk.to_sql(name='final', con=engine, if_exists='append',schema='hobbies',index=False)
 
         t_end = time()
 
         print('inserted another chunk, took %.3f second' % (t_end - t_start))
 
-#insert_chunks("full.csv")
+#insert_chunks("right.csv")
 discount = st.slider('How much discount would you like to give', -100, 100, 0) 
 
 
@@ -52,7 +52,7 @@ def fetch_data(id):
     
     
     cursor = connection.cursor()
-    cursor.execute("Select * from full where `Product ID`='"+id+"'")
+    cursor.execute("Select * from final where `Product ID`='"+id+"'")
     data = cursor.fetchall()
     print(cursor.column_names)
     df = pd.DataFrame(data,columns = cursor.column_names)
@@ -60,7 +60,7 @@ def fetch_data(id):
 
 def get_id():
     cursor = connection.cursor()
-    cursor.execute("Select distinct `Product ID` from full")
+    cursor.execute("Select distinct `Product ID` from final")
     data = cursor.fetchall()
     print(cursor.column_names)
     return pd.DataFrame(data,columns = cursor.column_names)
@@ -77,8 +77,12 @@ option = st.selectbox('Select Product',ids['Product ID'])
 
 final=fetch_data(option)
 final['Original Price'] = final['Original Price'].astype('float')
-final['Original Quantity'] = final['Original Quantity'].astype('int')
-
+final['Original Quantity'] = final['Original Quantity'].astype('float')
+final['Overall PED']=final['Overall PED'].astype('double')
+final['Week 1 PED']=final['Week 1 PED'].astype('double')
+final['Week 2 PED']=final['Week 2 PED'].astype('double')
+final['Week 3 PED']=final['Week 3 PED'].astype('double')
+final['Week 4 PED']=final['Week 4 PED'].astype('double')
 
 t_start = time()
 
@@ -141,13 +145,19 @@ def calc_ped(grouped,values,disc,overall_ped):
 #final=calc_ped(test,first_values,discount,hobby_ped)
 
 final['Discounted Price']=final['Original Price']*(1-discount/100)
-final['Predicted Quantity']=final['Original Quantity']*(1+final['Predicted PED']*(final['Discounted Price']-final['Original Price'])/final['Original Price'])
-
+#final['Predicted Quantity']=final['Original Quantity']*(1+final['Overall PED']*(final['Discounted Price']-final['Original Price'])/final['Original Price'])
+final['Predicted Week 1 Quantity']=final['Original Quantity']*(1+final['Week 1 PED']*(final['Discounted Price']-final['Original Price'])/final['Original Price'])
+final['Predicted Week 2 Quantity']=final['Original Quantity']*(1+final['Week 2 PED']*(final['Discounted Price']-final['Original Price'])/final['Original Price'])
+final['Predicted Week 3 Quantity']=final['Original Quantity']*(1+final['Week 3 PED']*(final['Discounted Price']-final['Original Price'])/final['Original Price'])
+final['Predicted Week 4 Quantity']=final['Original Quantity']*(1+final['Week 4 PED']*(final['Discounted Price']-final['Original Price'])/final['Original Price'])
+final['Original Revenue']=final['Original Quantity']*final['Original Price']
+final['Predicted Week 1 Revenue']=final['Predicted Week 1 Quantity']*final['Discounted Price']
 
 t_end = time()
 print('Predict data total time took %.3f second' % (t_end - t_start))
 
 st.dataframe(final)
+#st.write(final.to_html(), unsafe_allow_html=True)
 t_start = time()
 
 q=[]
@@ -168,7 +178,11 @@ cursor.execute("Select * from 3month where id='"+option+"'")
 data = cursor.fetchall()
 print(cursor.column_names)
 df = pd.DataFrame(data,columns = cursor.column_names)
-avg_pred=final['Predicted Quantity'][0]/28
+avg_pred_1=[final['Predicted Week 1 Quantity'][0]/7]*7
+avg_pred_2=[final['Predicted Week 2 Quantity'][0]/7]*7
+avg_pred_3=[final['Predicted Week 3 Quantity'][0]/7]*7
+avg_pred_4=[final['Predicted Week 4 Quantity'][0]/7]*7
+avg_pred=avg_pred_1+avg_pred_2+avg_pred_3+avg_pred_4
 df['date']=pd.to_datetime(df['date'])
 last_date=df['date'].max()
 

@@ -60,7 +60,7 @@ state_list = ['CA_1', 'CA_2', 'CA_3','CA_4', 'TX_1', 'TX_2','TX_3', 'WI_1', 'WI_
 default_values = state_list  # Set default values to all available categories
 
 # Multiselect with adjusted default values
-selection = st.multiselect('Select state', state_list, default_values)
+selection = st.multiselect('Select store', state_list, default_values)
 
 # Filter DataFrame based on selection
 df_selection = df[df['State ID'].isin(selection)]
