@@ -17,41 +17,18 @@ st.set_page_config(layout="wide")
 #The dropdown list shows the choice of product and discount rate is used to set the amount of discount given
 
 
-def insert_chunks(df):
-    df_iter = pd.read_csv(df, iterator=True, chunksize=10000)
-    
-    #chunk=next(df_iter)
-    engine = create_engine('mysql://root:root@localhost:3306/hobbies')
 
-    for chunk in df_iter :
-        t_start = time()
-
-        chunk = chunk
-
-        
-        chunk.to_sql(name='final', con=engine, if_exists='append',schema='hobbies',index=False)
-
-        t_end = time()
-
-        print('inserted another chunk, took %.3f second' % (t_end - t_start))
-
-#insert_chunks("right.csv")
 discount = st.slider('How much discount would you like to give', -100, 100, 0) 
 
 
 t_start = time()
-connection = mysql.connector.connect(
-    host = 'localhost',
-    user = 'root',
-    password = 'root',
-    database = 'hobbies'
-    )
+
 
 @st.cache_data
 def fetch_data(id):
     
     
-    cursor = connection.cursor()
+    cursor = st.session_state.cursor
     cursor.execute("Select * from final where `Product ID`='"+id+"'")
     data = cursor.fetchall()
     print(cursor.column_names)
@@ -59,7 +36,7 @@ def fetch_data(id):
     return df
 
 def get_id():
-    cursor = connection.cursor()
+    cursor = st.session_state.cursor
     cursor.execute("Select distinct `Product ID` from final")
     data = cursor.fetchall()
     print(cursor.column_names)
@@ -117,7 +94,7 @@ def ped1(group):
 
     return ped
 
-#hobby_ped=data.groupby(['cat_id']).apply(ped1)[0]
+
 
 # a version of calculate_ped, using this as its slightly diff and I dont wanna change things too much
 @st.cache_data
@@ -142,7 +119,6 @@ def calc_ped(grouped,values,disc,overall_ped):
     return final
 
 
-#final=calc_ped(test,first_values,discount,hobby_ped)
 
 final['Discounted Price']=final['Original Price']*(1-discount/100)
 #final['Predicted Quantity']=final['Original Quantity']*(1+final['Overall PED']*(final['Discounted Price']-final['Original Price'])/final['Original Price'])
@@ -160,20 +136,9 @@ st.dataframe(final)
 #st.write(final.to_html(), unsafe_allow_html=True)
 t_start = time()
 
-q=[]
-#for i in range(len(first_values)):
-#    q.append(test.loc[final['Product ID'][i]]['sold'].to_list())
-#final[ 'Sales Chart'] = q
-
-
-
-#df_editor=st.dataframe(final[final["Product ID"]==option],column_config={"Sales Chart" :st.column_config.LineChartColumn(
- #           "Monthly Sales Chart", y_min=0, y_max=50
- #       )})
-
 
 t_end = time()
-cursor = connection.cursor()
+cursor = st.session_state.cursor
 cursor.execute("Select * from 3month where id='"+option+"'")
 data = cursor.fetchall()
 print(cursor.column_names)
@@ -198,4 +163,3 @@ fig.add_trace(go.Scatter(x=df_new['date'], y=df_new['sold'],
                     mode='markers', name='Forecasted'))
 
 st.plotly_chart(fig, use_container_width=True)
-#print('The rest total time took %.3f second' % (t_end - t_start))

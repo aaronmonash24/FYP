@@ -1,11 +1,12 @@
 import streamlit as st
-import time
+from time import time
 import numpy as np
 import pandas as pd 
 # import matplotlib as 
 import plotly.express as px
 from datetime import timedelta
 st.set_page_config(page_title="Plotting Demo", page_icon="📈", layout = "wide")
+t_start = time()
 # """
 # Dashboard Overview:
 
@@ -27,7 +28,7 @@ st.markdown("# Dashboard")
 
 # Work below is done by Chloe Ang
 # Replace the datas inside with the data in local computer
-#data = pd.read_csv("3month.csv")
+
 st.session_state.cursor.execute("select * from 3month where date >= '2016-02-15'")
 df= st.session_state.cursor.fetchall()
 data=pd.DataFrame(df,columns = st.session_state.cursor.column_names)
@@ -96,3 +97,5 @@ with placeholder.container():
         st.plotly_chart(fig, use_container_width=True)
         
         
+t_end = time()
+print('Dashboard loading time took %.3f second' % (t_end - t_start))

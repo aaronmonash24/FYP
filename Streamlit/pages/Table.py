@@ -3,6 +3,8 @@ import mysql.connector
 import pandas as pd
 import statsmodels.api as sm 
 import numpy as np
+from time import  time
+
 
 st.set_page_config(layout="wide")
 st.markdown("# Product Table")
@@ -13,23 +15,12 @@ st.markdown("# Product Table")
 #Author: Atsu Mizoguchi 
 
 
-
-# connect mysql
-#connection = mysql.connector.connect(
-    #host = 'localhost',
-    #user = 'root',
-    #password = 'root',
-    #database = 'hobbies'
-    #)
-#
-#cursor = connection.cursor()
-st.session_state.cursor.execute("select * from full")
+st.session_state.cursor.execute("select * from final")
 data = st.session_state.cursor.fetchall()
 
 # create dataframe
 df = pd.DataFrame(data,columns = st.session_state.cursor.column_names)
-#df['sell_price'] = df['sell_price'].astype('float')
-#df['sold'] = df['sold'].astype('int')
+
 
 # search bar
 text_search = st.text_input("Search by ID", value="")
@@ -71,10 +62,15 @@ df_editor = st.dataframe(df_selection)
 uploaded_file = st.file_uploader("Choose a CSV file", type='csv')
 if uploaded_file is not None:
     try:
+        t_start = time()
         # Read the file as a DataFrame
         dataframe = pd.read_csv(uploaded_file)
         # Display the DataFrame as a table
         st.write(dataframe)
+        t_end = time()
+
+        print('Upload data took %.3f second' % (t_end - t_start))
+
     except Exception as e:
         st.error(f"Error: {e}")
 
